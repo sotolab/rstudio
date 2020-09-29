@@ -1,4 +1,5 @@
       # 작업공간 변경 예제
+      # exam004.txt (value)
       
       > setwd("c:/workspace/rwork")
       > dir()
