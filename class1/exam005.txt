@@ -1,4 +1,6 @@
       # 자료형과 자료구조 예제
+      # mode : 자료형
+      # class: 자료구조
       
       > animal <- c("토끼", "거북이", "토끼", "거북이", "토끼")
       > Nanimal <- as.factor(animal)
