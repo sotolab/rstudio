@@ -1,0 +1,19 @@
+      # 스칼라 변수 예제
+      
+      > data <- c(1:5)
+      > data
+      [1] 1 2 3 4 5
+      > sdata <- seq(1,10,2)
+      > sdata
+      [1] 1 3 5 7 9
+      > rdata <- rep(1:2,2)
+      > rdata
+      [1] 1 2 1 2
+      > first <- c("football", "baseball", "bowling", "tennis")
+      > second <-c("baseball","tennis")
+      > union(first, second)
+      [1] "football" "baseball" "bowling"  "tennis"  
+      > setdiff(first, second)
+      [1] "football" "bowling" 
+      > intersect(first, second)
+      [1] "baseball" "tennis"
