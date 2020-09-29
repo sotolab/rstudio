@@ -11,12 +11,19 @@
       [1] 1 2 1 2
       > first <- c("football", "baseball", "bowling", "tennis")
       > second <-c("baseball","tennis")
+      
+      # 합집합
       > union(first, second)
       [1] "football" "baseball" "bowling"  "tennis"  
+      
+      # first에 있고, second에 없는 것
       > setdiff(first, second)
       [1] "football" "bowling" 
+      
+      # first와 second 공통으로 있는 것
       > intersect(first, second)
       [1] "baseball" "tennis"
+      
       # 세미콜론(;)을 구분하면 한 줄에 여러 명령어를 실행할 수 있다
       > data; sdata; rdata; first; second
       [1] 1 2 3 4 5
