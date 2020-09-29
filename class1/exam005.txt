@@ -1,6 +1,8 @@
       # 자료형과 자료구조 예제
       # mode : 자료형
       # class: 자료구조
+      # Normal: 알파벳, 가나다 순서
+      # Ordinal: 사용자 지정한 순서
       
       > animal <- c("토끼", "거북이", "토끼", "거북이", "토끼")
       > Nanimal <- as.factor(animal)
@@ -12,3 +14,10 @@
       [1] "numeric"
       > class(Nanimal)
       [1] "factor"
+      > Oanimal <- factor(animal, levels = c("거북이", "토끼"), ordered = T)
+      > Oanimal
+      [1] 토끼   거북이 토끼   거북이 토끼  
+      Levels: 거북이 < 토끼
+      > par(mfrow = c(1,2))
+      > plot(Nanimal)
+      > plot(Oanimal)
