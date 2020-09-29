@@ -1,0 +1,12 @@
+      # 자료형과 자료구조 예제
+      
+      > animal <- c("토끼", "거북이", "토끼", "거북이", "토끼")
+      > Nanimal <- as.factor(animal)
+      > table(Nanimal)
+      Nanimal
+      거북이   토끼 
+       2      3 
+      > mode(Nanimal)
+      [1] "numeric"
+      > class(Nanimal)
+      [1] "factor"
