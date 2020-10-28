@@ -19,3 +19,97 @@
     > unlist
     [1] "star" "sun"  "moon"
     > 
+    
+    # 3 key와 value로 생성
+    > family <- list(name = c("star","sun", "moon"), age= c(13, 7, 3),
+    + address = c("jeju", "seoul", "busan"), gender = c("M", "W", "W"),
+    + htype = c("apt", "apt","house"))
+    > family
+    $name
+    [1] "star" "sun"  "moon"
+
+    $age
+    [1] 13  7  3
+
+    $address
+    [1] "jeju"  "seoul" "busan"
+
+    $gender
+    [1] "M" "W" "W"
+
+    $htype
+    [1] "apt"   "apt"   "house"
+    
+    # 4 name의 첫번째 값 출력
+    > family$name[1]
+    [1] "star"
+    
+    # 5 htype의 첫번째 값 출력
+    > family$htype[1]
+    [1] "apt"
+    
+    # 6 htype의 두번째 값을 "office"로 변경
+    > family$htype[2] <- "office"
+    > family$htype
+    [1] "apt"    "office" "house" 
+    
+    # 7 gender 원소 제거
+    > family$gender <- NULL
+    > family
+    $name
+    [1] "star" "sun"  "moon"
+
+    $age
+    [1] 13  7  3
+
+    $address
+    [1] "jeju"  "seoul" "busan"
+
+    $htype
+    [1] "apt"    "office" "house" 
+    
+    # 8 다차원 리스트 객체 생성
+    > multi_family = list(c1 = list("star", "sun", "moon"),
+    + c2 = list("earth", "mars", "venus"),
+    + c3 = list("saturn","neptun","pluto"))
+    > multi_family
+    $c1
+    $c1[[1]]
+    [1] "star"
+
+    $c1[[2]]
+    [1] "sun"
+
+    $c1[[3]]
+    [1] "moon"
+
+
+    $c2
+    $c2[[1]]
+    [1] "earth"
+
+    $c2[[2]]
+    [1] "mars"
+
+    $c2[[3]]
+    [1] "venus"
+
+
+    $c3
+    $c3[[1]]
+    [1] "saturn"
+
+    $c3[[2]]
+    [1] "neptun"
+
+    $c3[[3]]
+    [1] "pluto"
+    
+    # 9 다차원 리스트를 열 단위로 바인딩
+    # 리스트 자료가 열단위로 묶여서 matrix 객체가 생성
+    > do.call(cbind, multi_family)
+         c1     c2      c3      
+    [1,] "star" "earth" "saturn"
+    [2,] "sun"  "mars"  "neptun"
+    [3,] "moon" "venus" "pluto" 
+
