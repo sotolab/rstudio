@@ -50,6 +50,19 @@
       2 2 6  sun
       3 3 7 moon
       
+      # 객체 칼럼명만 보기
+      > family$x
+      [1] 1 2 3
+      > family$y
+      [1] 5 6 7
+      > family$z
+      [1] "star" "sun"  "moon"
+      
+      # 1열(x)과 2열(y)의 합계 
+      > apply(family[ , c(1,2)], 2, sum)
+       x  y 
+       6 18 
+      
       
       
       
