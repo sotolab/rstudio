@@ -62,6 +62,13 @@
       > apply(family[ , c(1,2)], 2, sum)
        x  y 
        6 18 
+       
+      # 서브셋으로 부분 객체 만들기 (y에서 6이상인 내용만 객체 만들기)
+      > x1 <- subset(family, y >=6)
+      > x1
+        x y    z
+      2 2 6  sun
+      3 3 7 moon
       
       
       
