@@ -48,3 +48,11 @@
       # 열 단위로 각 열의 평균값 
       > apply(mrowcol, 2, mean)
       [1] 2 5 8
+      
+      > colnames(mrowcol) <- c("one", "two", "three")
+      > mrowcol
+            one two three
+     [1,]   1   4     7
+     [2,]   2   5     8
+     [3,]   3   6     9
+     
