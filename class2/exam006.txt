@@ -20,6 +20,13 @@
     [[1]]
     [1] "sta" "sun" "moo"
     
+    # 4 영문 3자리 이상 연속 글 추출
+    > str_extract_all(family, "[a-z]{3,}")
+    [[1]]
+    [1] "star" "sun"  "moon"
+    
+    
+    
     
     
     
