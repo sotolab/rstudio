@@ -70,6 +70,17 @@
       2 2 6  sun
       3 3 7 moon
       
+      # 8 두 개 이상의 데이터프레임 병합
+      > height <- data.frame(no = c(1,2), height = c(120, 130))
+      > weight <- data.frame(no = c(1,2), weight = c(50, 60))
+      > family <- merge(height, weight, by.x = "no", by.y = "no")
+      > family
+        no height weight
+      1  1    120     50
+      2  2    130     60
+
+
+      
       
       
       
