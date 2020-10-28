@@ -5,6 +5,14 @@
     package ‘stringr’ successfully unpacked and MD5 sums checked
     > library(stringr)
     
+    # 2 정규식 표현, 숫자 2개와 일치하는 첫번째 문자열
+    > str_extract("star13sun07moon03", "[0-9]{2}")
+    [1] "13"
+    
+    # 3 정규식 표현, 숫자 2개와 일치하는 모든 문자열
+    > str_extract_all("star13sun07moon03", "[0-9]{2}")
+    [[1]]
+    [1] "13" "07" "03"
     
     
     
