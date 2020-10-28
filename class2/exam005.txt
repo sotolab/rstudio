@@ -1,1 +1,21 @@
-a
+    # 리스트 자료 구조
+    
+    # 1 list 생성
+    > list <- list("star", "sun", "moon")
+    > list
+    [[1]]
+    [1] "star"
+
+    [[2]]
+    [1] "sun"
+
+    [[3]]
+    [1] "moon"
+    
+    # 2 리스트를 벡터 구조로 변경
+    > unlist <- unlist(list)
+    > uliist
+    에러: 객체 'uliist'를 찾을 수 없습니다
+    > unlist
+    [1] "star" "sun"  "moon"
+    > 
