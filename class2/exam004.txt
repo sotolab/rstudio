@@ -33,7 +33,7 @@
       > setwd("C:/workspace/rstudio-master/data")     
       > getwd()
       [1] "C:/workspace/rstudio-master/data"
-      > family <- read.table("001famaily.txt", header = 1, sep = "")
+      > family <- read.table("001family.txt", header = 1, sep = "")
       > family
         번호 이름 나이
       1    1 star   13
