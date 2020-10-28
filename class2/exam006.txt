@@ -1,0 +1,11 @@
+    # 문자열 처리
+    
+    # 1 stringr 패키지 설치 및 로드
+    > install.packages("stringr")
+    package ‘stringr’ successfully unpacked and MD5 sums checked
+    > library(stringr)
+    
+    
+    
+    
+    
