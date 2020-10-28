@@ -78,6 +78,11 @@
         no height weight
       1  1    120     50
       2  2    130     60
+      
+      # 9 자료형(mode)과 자료 구조(class) 확인
+      > mode(family); class(family)
+      [1] "list"
+      [1] "data.frame"
 
 
       
