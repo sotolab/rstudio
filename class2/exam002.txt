@@ -49,6 +49,7 @@
       > apply(mrowcol, 2, mean)
       [1] 2 5 8
       
+      # 행렬 객체에 칼럼명 지정
       > colnames(mrowcol) <- c("one", "two", "three")
       > mrowcol
             one two three
