@@ -1,8 +1,8 @@
-      # 자료형 확인 예제
+# 자료형 확인 예제
       
-      > is.character(year)
-      [1] FALSE
-      > result <- is.numeric(year)
-      > result
-      [1] TRUE
+> is.character(year)
+[1] FALSE
+> result <- is.numeric(year)
+> result
+[1] TRUE
       
