@@ -12,3 +12,22 @@ star 는 13 입니다
 [1] 7
 > 
 
+# 2 write.table 함수를 이용한 txt 파일 저장
+> setwd("C:/workspace/rstudio-master/data")
+> family <- read.table(file = "001family.txt", header = T)
+> write.table(family, "output.txt", row.names = F)
+> df <- read.table(file = "output.txt", sep = "", header = T)
+> df
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon    3
+> 
+
+# 3 write.table 함수를 이용한 csv 파일 저장
+write.csv(family, "output.csv", row.names = F, quote = F)
+
+# 4 writexl 이용한 xlsx 파일 저장
+> install.packages("writexl")
+> library("writexl")
+> write_xlsx(x = family, path = "output.xlsx", col_names = T)
