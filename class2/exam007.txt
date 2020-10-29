@@ -101,3 +101,28 @@ Read 4 items
 2    2  sun    7
 3    3 moon   NA
 > 
+
+
+# 11 엑셀 파일 불러오기
+# read_excel(path, sheet, col_names, range, na, skip)
+# col_names: 첫 줄에 컬럼명이 있는 경우, T
+# range: 시트에서 읽어올 셀 범위
+# na: 빈 셀을 누락된 데이터로 보고 결측치 처리
+# skip: 읽기전에 건터뛸 최소 행의 수를 지정
+> install.packages("readxl")
+> library(readxl)
+> family <- read_excel(path = "008familyexcel.xlsx", sheet = "family")
+> family
+# A tibble: 4 x 3
+   번호 이름    나이
+  <dbl> <chr>  <dbl>
+1     1 star      13
+2     2 sun        7
+3     3 moon       3
+4     4 galaxy     6
+
+
+
+
+
+
