@@ -25,6 +25,12 @@
     [[1]]
     [1] "star" "sun"  "moon"
     
+    # 6 문자열 길이
+    > len <- str_length(family)
+    > len
+    [1] 23
+
+    
     
     
     
