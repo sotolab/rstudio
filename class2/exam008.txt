@@ -1,0 +1,14 @@
+# 파일 저장
+
+# 1 cat와 print 메시지 출력
+# cat는 문자열과 변수를 함께 사용할 수 있다
+# print는 변수 또는 수식만 가능하다
+> star <- 13
+> sun <- 7
+> moon <- 3
+> cat("star 는" , star , "입니다")
+star 는 13 입니다
+> print(sun)
+[1] 7
+> 
+
