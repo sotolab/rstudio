@@ -84,3 +84,11 @@ Read 4 items
 2    2  sun    7
 3    3 moon    3
 
+# 9 데이터 없는 경우 결측치(NA)로 처리하여 데이터 불러오기
+> family <- read.table("006familynodata.txt", header = T, na.strings = "-")
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon   NA
+> 
