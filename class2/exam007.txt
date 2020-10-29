@@ -36,3 +36,51 @@ Read 4 items
 3   moon 2018
 4 galaxy 2006
 > 
+
+# 4 txt 컬럼명이 없는 데이터 불러오기
+> setwd("C:/workspace/rstudio-master/data")
+> getwd()
+[1] "C:/workspace/rstudio-master/data"
+> family <- read.table(file = "003familynotitle.txt")
+> family
+  V1   V2 V3
+1  1 star 13
+2  2  sun  7
+3  3 moon  3
+>
+
+# 5 txt 컬럼명이 있는 데이터 불러오기
+> family <- read.table(file = "001family.txt", header = T)
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon    3
+>
+
+# 6 파일대화상자에서 선택한 데이터 불러오기
+# 001family.txt 파일을 선택한다
+> family <- read.table(file.choose(), header = T)
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon    3
+
+# 7 세미콜론으로 구별된 데이터 불러오기
+> family <- read.table("004familysemi.txt", sep = ";", header = T)
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon    3
+> 
+
+# 8 탭으로 구별된 데이터 불러오기
+> family <- read.table("005familytab.txt", sep = "\t", header = T)
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon    3
+
