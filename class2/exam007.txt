@@ -23,3 +23,16 @@ Read 5 items
 Read 4 items
 > input_char
 [1] "star"   "sun"    "moon"   "galaxy"
+
+# 3 에디터를 통한 데이터 입력
+# 입력창이 열리면, 원하는 데이터를 입력하고, 
+# 입력 완료되면 닫기 버튼을 선택합니다
+> family <- data.frame()
+> family <- edit(family)
+> family
+    var1 var2
+1   star 2008
+2    sun 2014
+3   moon 2018
+4 galaxy 2006
+> 
