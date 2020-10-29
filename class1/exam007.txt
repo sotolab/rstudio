@@ -1,17 +1,17 @@
-      # 작업공간 변경 예제
-      # exam004.txt (value)
+# 작업공간 변경 예제
+# exam004.txt (value)
       
-      > setwd("c:/workspace/rwork")
-      > dir()
-      character(0)
-      > write.csv(value, "c:/workspace/rwork/sample.csv")
-      > data <- read.csv("sample.csv", header=F)
-      > data
-      V1 V2
-      1 NA  x
-      2  1  2
-      3  2  3
-      4  3  4
-      > dir()
-      [1] "sample.csv"
-      > 
+> setwd("c:/workspace/rwork")
+> dir()
+character(0)
+> write.csv(value, "c:/workspace/rwork/sample.csv")
+> data <- read.csv("sample.csv", header=F)
+> data
+ V1 V2
+1 NA  x
+2  1  2
+3  2  3
+4  3  4
+> dir()
+[1] "sample.csv"
+> 
