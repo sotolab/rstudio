@@ -92,3 +92,12 @@ Read 4 items
 2    2  sun    7
 3    3 moon   NA
 > 
+
+# 10 csv로 저장된(콤마,) 데이터 불러오기
+> family <- read.csv("007familycsv.txt", header = T, na.strings = "-")
+> family
+  번호 이름 나이
+1    1 star   13
+2    2  sun    7
+3    3 moon   NA
+> 
