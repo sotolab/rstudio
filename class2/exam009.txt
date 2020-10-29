@@ -1,0 +1,34 @@
+# 사용자 정의 함수
+
+> survey <- read.csv("009survey.csv", header = T)
+
+> my_function <- function(x) {
++ for(idx in 1:length(x)) {
++ cat(idx, "번째 빈도")
++ print(table(x[idx]))
++ cat("\n")
++ }
++ }
+> my_function(survey)
+1 번째 빈도
+  1   2   3   4   5 
+ 30 133 156  80   3 
+
+2 번째 빈도
+  1   2   3   4   5 
+ 16 150  98 131   7 
+
+3 번째 빈도
+  1   2   3   4   5 
+  3  74  72 176  77 
+
+4 번째 빈도
+  1   2   3   4 
+ 30 178 153  41 
+
+5 번째 빈도
+  1   2   3   4   5 
+  8  81 107 160  46 
+
+> 
+
