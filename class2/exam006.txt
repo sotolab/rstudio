@@ -29,6 +29,21 @@
     > len <- str_length(family)
     > len
     [1] 23
+    
+    # 7 문자열 추가
+    > family
+    [1] "star2008sun2014moon2018"
+    > string_c <- str_c(family, "galaxy2006")
+    > string_c
+    [1] "star2008sun2014moon2018galaxy2006"
+    
+    # 8 문자열 벡터 생성 후 콤마를 기준으로 문자열 벡터 생성
+    > string_vec <- c("star", "sun", "moon", "galaxy")
+    > string_vec
+    [1] "star"   "sun"    "moon"   "galaxy"
+    > string_join <- paste(string_vec, collapse = ",")
+    > string_join
+    [1] "star,sun,moon,galaxy"
 
     
     
