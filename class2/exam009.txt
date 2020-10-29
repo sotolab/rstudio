@@ -1,5 +1,6 @@
 # 사용자 정의 함수
 
+# 1 빈도수 나타내기
 > survey <- read.csv("009survey.csv", header = T)
 
 > my_function <- function(x) {
@@ -30,5 +31,24 @@
   1   2   3   4   5 
   8  81 107 160  46 
 
-> 
+>
+
+# 2 구구단
+> gugu <- function(i, j) {
++ for(x in i) {
++ cat("**", x, "단**\n")
++ for(y in j) {
++ cat(x, " * ", y, " = ", x * y, "\n")
++ }
++ cat("\n")
++ }
++ }
+> i <- c(2:9)
+> j <- (1:9)
+> gugu(i, j)
+** 2 단**
+2  *  1  =  2 
+2  *  2  =  4 
+
+
 
