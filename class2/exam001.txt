@@ -32,3 +32,4 @@
 [1] 1 2 1 2
 [1] "football" "baseball" "bowling"  "tennis"  
 [1] "baseball" "tennis"  
+
