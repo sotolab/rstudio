@@ -13,3 +13,13 @@ Read 5 items
 > input_int
 [1] 1 2 3 4 5
 
+# 2 문자열 입력 받기 
+> input_char <- scan(what = character())
+1: star
+2: sun
+3: moon
+4: galaxy
+5: 
+Read 4 items
+> input_char
+[1] "star"   "sun"    "moon"   "galaxy"
