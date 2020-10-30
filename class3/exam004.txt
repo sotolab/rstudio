@@ -24,7 +24,7 @@
 > plot(price, type = "o", pch = 20, col = "green", cex = 1.5)
 > 
 
-# 선의 굵기를 지정
+# 4 선의 굵기를 지정
 > par(mfrow = c(1,1))
 > plot(price, type = "o", pch = 20,
 + col = "green", cex = 2.0, lwd = 3)
