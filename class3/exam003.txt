@@ -16,6 +16,7 @@ abline(h = 10, lty = 3, col = "red")
 # Petal.Length: 꽃잎 길이
 # Petal.Width: 꽃잎 너비
 # Species: 꽃의 종
+# https://tensorflowkorea.files.wordpress.com/2017/06/1-2.png?w=400&h=400
 > data(iris)
 > names(iris)
 [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
