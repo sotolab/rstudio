@@ -1,0 +1,6 @@
+# 고급 시각화
+
+# barchart 막대 그래프
+> install.packages("lattice")
+> library(lattice)
+
