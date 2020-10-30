@@ -57,11 +57,17 @@
 # 5 산점도 패널 제목
 # factor는 변수의 순서대로 levels 값이 그대로 패널의 제목으로 보임
 > convert <- transform(airquality, Month = factor(Month))
-> xyplot(Ozone ~ Wind | Month, data = convert)
 > xyplot(Ozone ~ Wind | Month, data = convert, layout = c(5,1))
 > 
 
-# 6 지진 산점도
+# 6 동일한 패널에 두 개의 변수값 표현
+> xyplot(Ozone + Solar.R ~ Wind | factor(Month),
++ data = airquality,
++ col = c("blue", "red"),
++ layout = c(5, 1))
+> 
+
+# 7 지진 산점도
 # lat(위도), long(경도), dapth(수심, km)
 # mag(리히터 규모), stations(관측소)
 > head(quakes)
@@ -74,6 +80,58 @@
 6 -19.68 184.31   195 4.0       12
 > xyplot(lat ~ long, data = quakes, pch = ".")
 > 
+
+# 8 선점도에 제목 추가
+> tplot <- xyplot(lat ~ long, data = quakes, pch = ".")
+> tplot <- update(tplot, main ="태평양에서 발생한 지진 위치")
+> print(tplot)
+> 
+
+# 9 범주를 6개로 나누어서 시각화
+> range(quakes$depth)
+[1]  40 680
+> quakes$depth2[quakes$depth >= 40 & quakes$depth <= 150] <- 1
+> quakes$depth2[quakes$depth >= 151 & quakes$depth <= 250] <- 2
+> quakes$depth2[quakes$depth >= 251 & quakes$depth <= 350] <- 3
+> quakes$depth2[quakes$depth >= 351 & quakes$depth <= 450] <- 4
+> quakes$depth2[quakes$depth >= 451 & quakes$depth <= 550] <- 5
+> quakes$depth2[quakes$depth >= 551 & quakes$depth <= 680] <- 6
+> convert <- transform(quakes, depth2 = factor(depth2))
+> xyplot(lat ~ long | depth2, data = convert)
+> 
+
+# 10 지진의 깊이를 5개 영역으로 범주화
+# 첫번째는 39.5 ~ 80.5 km 수심에서 발생한 진앙을 의미함
+> depthgroup <- equal.count(quakes$depth, number = 5, overlap = 0)
+> depthgroup
+
+Data:
+   [1] 562 650  42 626 649 195  82 194 211 622 583 249 554 600 139 306  50
+  [18] 590 570 598 576 211 512 125 431 537 155 498 582 328 553  50 292 349
+Intervals:
+    min   max count
+1  39.5  80.5   203
+2  79.5 186.5   203
+3 185.5 397.5   203
+4 396.5 562.5   202
+5 562.5 680.5   200
+
+Overlap between adjacent intervals:
+[1] 4 3 4 0
+> xyplot(lat ~ long | depthgroup, data = quakes, 
++ main = "Earthquakes(depthgroup)",
++ ylab = "latitude", xlab = "longitude", 
++ pch = "@", col = "red")
+>
+
+
+
+
+
+
+
+
+
 
 
 
