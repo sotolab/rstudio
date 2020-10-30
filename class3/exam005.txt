@@ -1,6 +1,84 @@
-# 고급 시각화
+# 고급 시각화 (lattice)
 
-# barchart 막대 그래프
+# 1 barchart 막대 그래프
+# barchart( y축 칼럼 ~ x축 컬럼 | 조건, data)
+# layout = c(4,1) 4개의 패널을 1행에 보여줌
+> bar_data <- matrix(c(1:16), nrow=4, ncol=4)
+> colnames(bar_data) <- c("도시A", "도시B","시골A", "시골B")
+> View(bar_data)
 > install.packages("lattice")
 > library(lattice)
+> dftable <-as.data.frame.table(bar_data)
+> dftable
+   Var1  Var2 Freq
+1     A 도시A    1
+2     B 도시A    2
+3     C 도시A    3
+4     D 도시A    4
+5     A 도시B    5
+6     B 도시B    6
+7     C 도시B    7
+8     D 도시B    8
+9     A 시골A    9
+10    B 시골A   10
+11    C 시골A   11
+12    D 시골A   12
+13    A 시골B   13
+14    B 시골B   14
+15    C 시골B   15
+16    D 시골B   16
+> barchart(Var1 ~ Freq | Var2, data = dftable, layout = c(4,1))
+> 
+
+# 2 점 그래프
+> dotplot(Var1 ~ Freq | Var2, dftable)
+> 
+
+# 3 점선 그래프
+# type: "o" 점 타입으로 원형에 실선이 통과하는 유형
+# auto.key : 범례를 나타내며, 그래프 오른쪽이며, 점과 선을 범례에 표시함
+> dotplot(Var1 ~ Freq, data = dftable, 
++ groups = Var2, type = "o",
++ auto.key = list(space = "right", points = T, lines = T))
+> 
+
+# 4 산점도 그래프
+# Ozone (오존), Solar.R(태양열), Wind(바람)
+# Temp(온도), Month(월5~9), Day(일1~31)
+> library(datasets)
+> airquality
+    Ozone Solar.R Wind Temp Month Day
+1      41     190  7.4   67     5   1
+2      36     118  8.0   72     5   2
+3      12     149 12.6   74     5   3
+> xyplot(Ozone ~ Wind, data = airquality)
+> 
+
+# 5 산점도 패널 제목
+# factor는 변수의 순서대로 levels 값이 그대로 패널의 제목으로 보임
+> convert <- transform(airquality, Month = factor(Month))
+> xyplot(Ozone ~ Wind | Month, data = convert)
+> xyplot(Ozone ~ Wind | Month, data = convert, layout = c(5,1))
+> 
+
+# 6 지진 산점도
+# lat(위도), long(경도), dapth(수심, km)
+# mag(리히터 규모), stations(관측소)
+> head(quakes)
+     lat   long depth mag stations
+1 -20.42 181.62   562 4.8       41
+2 -20.62 181.03   650 4.2       15
+3 -26.00 184.10    42 5.4       43
+4 -17.97 181.66   626 4.1       19
+5 -20.42 181.96   649 4.0       11
+6 -19.68 184.31   195 4.0       12
+> xyplot(lat ~ long, data = quakes, pch = ".")
+> 
+
+
+
+
+
+
+
 
