@@ -1,0 +1,26 @@
+# 연속변수 데이터 시각화
+
+# 1 상자 그래프
+> bar_data <- matrix(c(1:16), nrow=4, ncol=4)
+> colnames(bar_data) <- c("도시A", "도시B","시골A", "시골B")
+> View(bar_data)
+> boxplot(bar_data, range = 0)
+
+# 2 상자 그래프
+# h : y축 값, lty : 3(점선)
+abline(h = 10, lty = 3, col = "red")
+
+# 3 히스토그램 iris 꽃받침 길이
+> data(iris)
+> names(iris)
+[1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+[5] "Species"  
+
+# 4 히스토그램 iris 꽃받침 너비
+> summary(iris$Sepal.Length)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.300   5.100   5.800   5.843   6.400   7.900 
+> hist(iris$Sepal.Length, xlab = "iris$Sepal.Length", col = "magenta",
++ main = "iris 꽃받침 길이 Histogram", xlim = c(4.3, 7.9))
+
+
