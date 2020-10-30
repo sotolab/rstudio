@@ -17,7 +17,7 @@
 > plot(price, type = "s")
 > 
 
-# 3 빈 사각형, 채워진 사각형, 
+# 3 빈 사각형, 채워진 사각형
 > plot(price, type = "o", pch = 5)
 > plot(price, type = "o", pch = 15)
 > plot(price, type = "o", pch = 20, col = "blue")
