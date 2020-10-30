@@ -124,6 +124,13 @@ Overlap between adjacent intervals:
 + pch = "@", col = "red")
 >
 
+# 11 3차원으로 산점도
+> cloud(depth ~ lat * long, data = quakes, 
++ zlim = rev(range(quakes$depth)),
++ xlab = "경도", ylab = "위도", zlab = "깊이")
+> 
+
+
 
 
 
