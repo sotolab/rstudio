@@ -131,19 +131,14 @@ Overlap between adjacent intervals:
 > 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 12 3차원 회전속성 산점도
+# z축 방향으로 45회 회전, x축 반대방향으로 25도 회전
+> cloud(depth ~ lat * long, data = quakes, 
++ zlim = rev(range(quakes$depth)),
++ screen = list(z = 45, x = -25),
++ main = "3차원 산점도",
++ xlab = "경도", ylab = "위도", zlab = "깊이")
+> 
+> 
 
 
