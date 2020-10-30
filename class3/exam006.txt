@@ -61,5 +61,6 @@
 > layer3
 
 # 8 파일로 저장
+# scale : 크기 
 > ggsave("pop201901.png", scale = 1, width = 10.24, height = 7.68)
 >
