@@ -1,19 +1,19 @@
 # 데이터 시각화
 
 # 1 개별 막대 차트
-> chart_data <- matrix(c(1:16), nrow=4, ncol=4)
-> colnames(chart_data) <- c("도시A", "도시B","시골A", "시골B")
-> View(chart_data)
+> bar_data <- matrix(c(1:16), nrow=4, ncol=4)
+> colnames(bar_data) <- c("도시A", "도시B","시골A", "시골B")
+> View(bar_data)
 > par(mfrow = c(1,2))
-> barplot(chart_data, beside = T, col = rainbow(5),
+> barplot(bar_data, beside = T, col = rainbow(5),
 + main = "어린이 보육 시설 비교")
 > 
 
 # 2 개별 막대 범례 표시
-> barplot(chart_data, beside = T, col = rainbow(5),
+> barplot(bar_data, beside = T, col = rainbow(5),
 + main = "어린이 보육 시설 비교",
-+ legend = colnames(chart_data))
++ legend = colnames(bar_data))
 
 # 3 누적 막대 범례 표시
-> barplot(chart_data, beside = F, col = rainbow(5))
+> barplot(bar_data, beside = F, col = rainbow(5))
 > title(main = "어린이 보육 시설 비교", font.main = 4)
