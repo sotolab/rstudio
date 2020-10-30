@@ -6,11 +6,16 @@
 > View(bar_data)
 > boxplot(bar_data, range = 0)
 
-# 2 상자 그래프
+# 2 상자 그래프 기준선
 # h : y축 값, lty : 3(점선)
 abline(h = 10, lty = 3, col = "red")
 
 # 3 히스토그램 iris 꽃받침 길이
+# Sepal.Length: 꽃받침 길이 
+# Sepal.Width: 꽃받침 너비
+# Petal.Length: 꽃잎 길이
+# Petal.Width: 꽃잎 너비
+# Species: 꽃의 종
 > data(iris)
 > names(iris)
 [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
