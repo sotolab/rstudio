@@ -1,1 +1,21 @@
 # 데이터 시각화
+
+# 1 세로 막채 차트
+> chart_data <- c(110, 70, 125, 75, 130, 100, 135, 125)
+> names(chart_data) <- c("star2016", "sun2016",
++ "star2017","sun2017",
++ "star2018","sun2018",
++ "star2019","sun2019")
+> barplot(chart_data, ylim = c(0, 200),
++ col = rainbow(8),
++ main = "star vs sun")
+
+# 2 x와 y에 레이블 추가
+> barplot(chart_data, ylim = c(0, 200),
++ ylab = "키 높이(단위: cm)",
++ xlab = "년도별 현황",
++ main = "Star와 Sun의 키 높이 비교")
+> 
+
+
+
