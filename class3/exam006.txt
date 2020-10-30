@@ -1,1 +1,6 @@
-ㄹ
+# 고급 시각화 (ggplot2)
+
+#1 
+> install.packages("ggplot2")
+> library(ggplot2)
+
