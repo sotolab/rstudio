@@ -40,6 +40,15 @@
 + col = rep(c(2,4),4))
 > 
 
+# 6 가로 막대 색상 이름 지정
+> barplot(chart_data, xlim = c(0, 200), horiz = T,
++ ylab = "키 높이(단위: cm)",
++ xlab = "년도별 현황",
++ space = 1, cex.names = 0.8,
++ main = "Star와 Sun의 키 높이 비교",
++ col = rep(c("red","green"),4))
+> 
+
 
 
 
