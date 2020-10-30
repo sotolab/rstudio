@@ -1,6 +1,6 @@
 # 고급 시각화 (ggplot2)
 
-#1
+#1 막대 그래프
 # manufacturer(제조사), model(모델), disp(엔진크기)
 # year(연식), cyl(실린더 수), trans(변속기)
 # drv(구동방식: 사륜4, 전륜f, 후r), cty(도시 주행 마일 수)
@@ -13,7 +13,7 @@
 > table(mpg$drv)
 > qplot(hwy, data = mpg, fill = drv)
 
-# 2 막대 그래프
+# 2 폭 크기 조절 막대 그래프
 # binwidth 막대의 폭 크기 조절
 > qplot(hwy, data = mpg, fill = drv, binwidth = 2)
 
@@ -21,3 +21,45 @@
 # facets = drv ~ . 행단위로패널이 생성한 그래프
 > qplot(hwy, data = mpg, fill = drv, facets = drv ~ ., binwidth = 2)
 
+# 4 두 개 변수 대상으로 qplot 함수 적용
+# 엔진크기가 작고, 전륜구동(f) 방식인 경우 고속도로 주행 마일 수가 더 좋음
+> qplot(displ, hwy, data = mpg)
+
+# 5 서울 지도 시각화
+> library(ggplot2)
+> install.packages("ggmap")
+> library(ggmap)
+> seoul <- c(left = 126.77, bottom = 37.40, 
++ right = 127.17, top = 37.70)
+> map <- get_stamenmap(seoul, zoom = 12, maptype = 'terrain')
+> ggmap(map)
+> 
+
+# 6 대한민국 2019년 인구수 
+# 대구를 중심지역으로 함
+> pop <- read.csv(file = "011population201901.csv", header = T)
+> library(stringr)
+> region <- pop$'지역명'
+> lon <- pop$LON
+> lat <- pop$LAT
+> tot_pop <- as.numeric(str_replace_all(pop$'총인구수', ',', ''))
+> df <- data.frame(region, lon, lat, tot_pop)
+> df
+> df <- df[1:17, ]
+> df
+> daegu <- c(left = 123.4423013, bottom = 32.8528306,
++ right = 131.601445, top = 38.8714354)
+> map <- get_stamenmap(daegu, zoom = 7, maptype = 'watercolor')
+> layer1 <- ggmap(map)
+> layer1
+> 
+
+# 7 전체 인구수 시각화 
+> layer3 <- layer2 + geom_text(data = df, 
++ aes(x = lon + 0.01, y = lat + 0.08,
++ label = region), size = 3)
+> layer3
+
+# 8 파일로 저장
+> ggsave("pop201901.png", scale = 1, width = 10.24, height = 7.68)
+>
