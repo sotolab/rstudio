@@ -1,3 +1,28 @@
+
+== [class1] ==
+exam001.txt
+# 스칼라 변수 예제
+
+exam002.txt
+# 벡터 변수 예제
+
+exam003.txt
+# 자료형 확인 예제
+
+exam004.txt
+# 자료형 변환 예제
+
+exam005.txt
+# 자료형과 자료구조 예제
+
+exam006.txt
+# 날짜 변환 예제
+
+exam007.txt
+# 작업공간 변경 예제
+
+== [class2] ==
+
 exam001.txt
 # 벡터 응용 예제
 # 1 백터 데이터 생성
@@ -17,7 +42,6 @@ exam002.txt
 # 7 행 단위로 각 행의 최소값
 # 8 열 단위로 각 열의 평균값 
 # 9 행렬 객체에 칼럼명 지정
-
 
 exam003.txt
 # 배열 
@@ -74,9 +98,19 @@ exam007.txt
 # 10 csv로 저장된(콤마,) 데이터 불러오기
 # 11 엑셀 파일 불러오기
 
+exam008.txt
+# 파일 저장
+# 1 cat와 print 메시지 출력
+# 2 write.table 함수를 이용한 txt 파일 저장
+# 3 write.table 함수를 이용한 csv 파일 저장
+# 4 writexl 이용한 xlsx 파일 저장
 
+exam009.txt
+# 사용자 정의 함수
+# 1 빈도수 나타내기
+# 2 구구단
 
+== [class3] ==
 
-
-
+exam001.txt
 
