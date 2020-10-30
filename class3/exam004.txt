@@ -1,0 +1,20 @@
+# 연속변수 데이터 시각화
+
+# 1 산점도 시각화
+> price <- runif(10, min = 1, max = 100)
+> plot(price, col = "red")
+> par(new = T)
+> line_chart = 1:100
+> plot(line_chart, type = "l", col = "red", axes = F, ann = F)
+> text(70,80, "대각선 추가", col = "blue")
+> 
+
+# 2 산점도 실선, 원형, 직선, 꺽은선  
+> par(mfrow = c(2,2))
+> plot(price, type = "l")
+> plot(price, type = "o")
+> plot(price, type = "h")
+> plot(price, type = "s")
+> 
+
+
