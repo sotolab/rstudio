@@ -47,3 +47,7 @@ lword
 
 > 
 
+# 6 
+# library(arules)
+
+
