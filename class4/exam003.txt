@@ -47,7 +47,12 @@ lword
 
 > 
 
-# 6 
+# 6 트랜잭션 생성
 # library(arules)
+
+
+
+
+> install.packages("httr")
 
 
