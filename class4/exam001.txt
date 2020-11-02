@@ -1,1 +1,30 @@
-s
+
+1 R version 3.6.3 download
+http://healthstat.snu.ac.kr/CRAN/bin/windows/base/old/3.6.3/R-3.6.3-win.exe
+
+2 JDK install
+https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+https://enos.itcollege.ee/~jpoial/allalaadimised/jdk8/jdk-8u271-windows-x64.exe
+
+3 packages update
+https://cran.r-project.org/web/packages/xfun/index.html
+https://cran.r-project.org/bin/windows/contrib/4.0/xfun_0.19.zip
+
+https://cran.r-project.org/web/packages/stringi/index.html
+https://cran.r-project.org/bin/windows/contrib/4.0/stringi_1.5.3.zip
+
+https://cran.r-project.org/web/packages/testthat/index.html
+https://cran.r-project.org/bin/windows/contrib/4.0/testthat_3.0.0.zip
+
+
+4 KoNLP install
+> install.packages("https://cran.rstudio.com/bin/windows/contrib/3.4/KoNLP_0.80.1.zip", repos = NULL)
+> install.packages("Sejong")
+> install.packages("wordcloud")
+> install.packages("tm")
+> install.packages("hash")
+> install.packages("tau")
+> install.packages("RSQLite")
+> install.packages("rJava")
+> install.packages("devtools")
+
