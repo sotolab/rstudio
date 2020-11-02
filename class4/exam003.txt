@@ -115,7 +115,23 @@ creating S4 object  ... done [0.00s].
 > apr3
 set of 52 rules 
 
-
+# 연관어 시각화
+> rules <- labels(tranrules, ruleSep = " ")
+> rules
+> rules <- sapply(rules, strsplit, " ", USE.NAMES = F)
+> rules
+> rulemat <- do.call("rbind", rules)
+> class(rulemat)
+[1] "matrix"
+> install.packages("igraph")
+> library(igraph)
+> ruleg <- graph.edgelist(rulemat[c(12:59), ], directed = F)
+> ruleg
+> plot.igraph(ruleg, vertex.label = V(ruleg)$name, 
++ vertex.label.cex = 1.2, vertext.label.color = 'black',
++ vertex.size = 20, vertext.color = 'green',
++ vertex.frame.co.or = 'blue')
+> 
 
 
 
