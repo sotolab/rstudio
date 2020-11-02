@@ -77,17 +77,26 @@ Content:  documents: 5
 > myCorpusPrepro_term <- TermDocumentMatrix(myCorpusPrepro,
 + control = list(wordLengths = c(4, 16)))
 > myCorpusPrepro_term
-<<TermDocumentMatrix (terms: 4, documents: 76)>>
-Non-/sparse entries: 4/300
-Sparsity           : 99%
-Maximal term length: 7
+<<TermDocumentMatrix (terms: 692, documents: 76)>>
+Non-/sparse entries: 1255/51337
+Sparsity           : 98%
+Maximal term length: 12
 Weighting          : term frequency (tf)
 
 > myTerm_df <- as.data.frame(as.matrix(myCorpusPrepro_term))
 > dim(myTerm_df)
-[1]  4 76
+[1] 692  76
 
 # 5 단어 출현 빈도수 
+# 출현 빈도수가 높은 순서대로 내림차순 정렬
+# rowSums : 동일한 단어의 빈도수를 계산
+# sort : 빈도수를 descreasing = TRUE 속성
+# 가장 높은 상위 10개를 추출
+> wordResult <- sort(rowSums(myTerm_df), decreasing = TRUE)
+> wordResult[1:10]
+  데이터     분석 빅데이터     처리     사용     수집   시스템     저장     결과     노드 
+      91       41       33       31       29       27       23       16       14       13 
+> 
 
 
 
