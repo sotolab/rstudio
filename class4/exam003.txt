@@ -1,2 +1,49 @@
 # 연관어 분석
 
+# 1 단어 추출
+marketing <- file("013marketing.txt", encoding = "UTF-8")
+marketing2 <- readLines(marketing)
+close(marketing)
+head(marketing2)
+
+# 2 줄 단위 단어 추출
+lword <- Map(extractNoun, marketing2)
+length(lword)
+lword <- unique(lword)
+length(lword)
+
+# 3 중복 단어 제거와 추출 단어 확인
+lword <- sapply(lword, unique)
+length(lword)
+lword
+
+# 4 전처리
+> filter1 <- function(x) {
++ nchar(x) <= 4 && nchar(x) >= 2 && is.hangul(x)
++ }
+> 
+> filter2 <- function(x) { Filter(filter1, x) }
+
+
+# 5 필터링 함수 정의
+> word <- list(c("홍길동", "이순", "만기", "김"),
++ c("대한민국", "우리나라대한민구", "한국", "resu"))
+> class(word)
+
+> filter1 <- function(x) {
++ nchar(x) <= 4 && nchar(x) >= 2 && is.hangul(x)
++ }
+> filter2 <- function(x) {
++ Filter(filter1, x)
++ }
+
+> filterword <- sapply(word, filter2)
+> filterword
+[[1]]
+[1] "홍길동" "이순"   "만기"  
+
+[[2]]
+[1] "대한민국" "한국"    
+
+> 
+
