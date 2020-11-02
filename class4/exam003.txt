@@ -116,6 +116,13 @@ creating S4 object  ... done [0.00s].
 set of 52 rules 
 
 # 연관어 시각화
+# vertex.label : 레이블 이름
+# vertex.label.cex : 레이블 크기
+# vertext.label.color : 레이블 색
+# vertex.size : 정점 크기
+# vertext.color : 정점 색
+# vertex.frame.co.or : 정점 테두리 색
+
 > rules <- labels(tranrules, ruleSep = " ")
 > rules
 > rules <- sapply(rules, strsplit, " ", USE.NAMES = F)
@@ -132,12 +139,5 @@ set of 52 rules
 + vertex.size = 20, vertext.color = 'green',
 + vertex.frame.co.or = 'blue')
 > 
-
-
-
-
-
-
-> install.packages("httr")
 
 
