@@ -97,7 +97,20 @@ Weighting          : term frequency (tf)
   데이터     분석 빅데이터     처리     사용     수집   시스템     저장     결과     노드 
       91       41       33       31       29       27       23       16       14       13 
 > 
+# 6 어울리지 않는 단어 제거 
+# 
+> myCorpusPrepro <- tm_map(myCorpus, removePunctuation)
+> myCorpusPrepro <- tm_map(myCorpusPrepro, removeNumbers)
+> myCorpusPrepro <- tm_map(myCorpusPrepro, tolower)
+> myStopwords = c(stopwords('english'), "사용", "하기")
+> myCorpusPrepro <- tm_map(myCorpusPrepro, removeWords, myStopwords)
 
-
+> myCorpusPrepro_term <- TermDocumentMatrix(myCorpusPrepro,
++ control = list(wordLengths = c(4, 16)))
+> myTerm_df <- as.data.frame(as.matrix(myCorpusPrepro_term))
+> wordResult <- sort(rowSums(myTerm_df), decreasing = TRUE)
+> wordResult[1:10]
+  데이터     분석 빅데이터     처리     수집   시스템     저장     결과     노드     얘기 
+      91       41       33       31       27       23       16       14       13       13
 
 
