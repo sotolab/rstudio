@@ -1,3 +1,31 @@
 # 실시간 뉴스 수집과 분석
 
+# 1 httr, XML 패키지 설치 및 준비
 > install.packages("httr")
+> library(XML)
+> url <- "http://media.daum.net"
+> web <- GET(url)
+> web
+
+# 2 news 자료 수집
+> html <- htmlTreeParse(web, useInternalNodes = T, trim = T, encoding = "utf-8")
+> rootNode <- xmlRoot(html)
+> news <- xpathSApply(rootNode, "//a[@class = 'link_txt']", xmlValue)
+> news
+
+# 3 전처리 과정
+# [\r\n\t] : 이스케이프 제거
+# [:punct:] : 문장부호 제거
+# [:cntrl:] : 특수문자 제거
+# [a-z]+ : 소문자 제거
+# [A-Z]+ : 대문자 제거
+# \\s+ : 2개 이상 공백 교체
+> news_pre <- gsub("[\r\n\t]", ' ', news)
+> news_pre <- gsub('[[:punct:]]', ' ', news_pre)
+> news_pre <- gsub('[[:cntrl:]]', ' ', news_pre)
+> news_pre <- gsub('[a-z]+', ' ', news_pre)
+> news_pre <- gsub('[A-Z]+', ' ', news_pre)
+> news_pre <- gsub('\\s+', ' ', news_pre)
+> news_pre
+
+
