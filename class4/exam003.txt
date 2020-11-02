@@ -1,21 +1,23 @@
 # 연관어 분석
 
 # 1 단어 추출
-marketing <- file("013marketing.txt", encoding = "UTF-8")
-marketing2 <- readLines(marketing)
-close(marketing)
-head(marketing2)
+> setwd("C:/workspace/rstudio-master/data")
+> marketing <- file("013marketing.txt", encoding = "UTF-8")
+> marketing2 <- readLines(marketing)
+> close(marketing)
+> head(marketing2)
 
 # 2 줄 단위 단어 추출
-lword <- Map(extractNoun, marketing2)
-length(lword)
-lword <- unique(lword)
-length(lword)
+> lword <- Map(extractNoun, marketing2)
+> length(lword)
+> lword <- unique(lword)
+> length(lword)
+[1] 353
 
 # 3 중복 단어 제거와 추출 단어 확인
-lword <- sapply(lword, unique)
-length(lword)
-lword
+> lword <- sapply(lword, unique)
+> length(lword)
+> lword
 
 # 4 전처리
 > filter1 <- function(x) {
@@ -48,7 +50,28 @@ lword
 > 
 
 # 6 트랜잭션 생성
-# library(arules)
+# as : 트랜잭션 생성
+# apriori(data, parameter = NULL, appearance = NULL, control = NULL)
+# parameter-supp : 지지도(support)
+#          -conf : 신뢰도(confidence)
+# appearance : 연관규칙 속성
+# control : 정렬
+> library(arules)
+> wordtran <- as(lword, "transactions")
+> wordtran
+transactions in sparse format with
+ 353 transactions (rows) and
+ 2423 items (columns)
+>
+> tranrules <- apriori(wordtran, 
++ parameter = list(supp = 0.25, conf = 0.05))
+> detach(package:tm, unload=TRUE)
+> inspect(tranrules)
+     lhs                rhs      support   confidence coverage  lift     count
+[1]  {}              => {투자}   0.2861190 0.2861190  1.0000000 1.000000 101  
+
+
+
 
 
 
