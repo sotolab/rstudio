@@ -50,4 +50,30 @@ Facebook에서는 1초마다 글이 4만 천 건 포스팅되고, 좋아요 클�
 ﻿﻿스마트 기기와 SNS 덕분에 과거 어느 때보다 많은 데이터가 흘러 다니고 빠르게 쌓입니다. 다음 그림은 2013년에 인터넷에서 60초 동안 얼마나 많은 일이 벌어지는지를 나타낸 그림이다. Facebook에서는 1초마다 글이 4만 천 건 포스팅되고, 좋아요 클릭이 180만 건 발생합니다. 데이터는 350GB씩 쌓입니다. 이런 데이터를 실시간으로 분석하면 사용자의 패턴을 파악하거나 의사를 결정하는 데 참고하는 등 다양하게 사용할 수 있을 것입니다.  
                                                                                                                                                                                                                                            "﻿﻿스마트기SNS덕분과거때데이터다음그림2013년인터넷60초동안일지그림Facebook1초글4천거포스팅되고클릭180거발생데이터350GB씩데이터실시간분석사용자패턴파악의사결정데등다양하게사용수것" 
 
+# 3 추출된 단어를 대상으로 전처리
+# 추출된 단어를 이용하여 말뭉치(corpus) 생성
+# 문자부호 제거: removePunctuation
+# 수치 제거 : removeNumbers
+# 소문자 변경 : tolower
+# 불용어 제거 : removeWords, stopwords('english')
+# 전처리 결과 확인 : inspect
+> myCorpus <- Corpus(VectorSource(facebook_nouns))
+> myCorpus
+<<SimpleCorpus>>
+Metadata:  corpus specific: 1, document level (indexed): 0
+Content:  documents: 76
+> 
+> myCorpusPrepro <- tm_map(myCorpus, removePunctuation)
+> myCorpusPrepro <- tm_map(myCorpusPrepro, removeNumbers)
+> myCorpusPrepro <- tm_map(myCorpusPrepro, tolower)
+> myCorpusPrepro <- tm_map(myCorpusPrepro, removeWords, stopwords('english'))
+> inspect(myCorpusPrepro[1:5])
+<<SimpleCorpus>>
+Metadata:  corpus specific: 1, document level (indexed): 0
+Content:  documents: 5
+
+# 4 단어 선별
+
+
+
 
