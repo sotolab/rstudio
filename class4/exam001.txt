@@ -17,6 +17,9 @@ https://cran.r-project.org/bin/windows/contrib/4.0/stringi_1.5.3.zip
 https://cran.r-project.org/web/packages/testthat/index.html
 https://cran.r-project.org/bin/windows/contrib/4.0/testthat_3.0.0.zip
 
+https://cran.r-project.org/web/packages/arules/index.html
+https://cran.r-project.org/bin/windows/contrib/4.0/arules_1.6-6.zip
+
 
 4 KoNLP install
 > install.packages("https://cran.rstudio.com/bin/windows/contrib/3.4/KoNLP_0.80.1.zip", repos = NULL)
