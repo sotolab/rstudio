@@ -83,7 +83,14 @@ Weighting          : term frequency (tf)
   경제   내년 대통령   정상   통합   행정 트럼프   대선 상반기 성장세 
      4      3      3      3      3      3      3      3      2      2 
 > 
->
+
+# 워드클라우드 생성
+> library(wordcloud)
+> myNames <- names(wordResult)
+> myNames
+> df <- data.frame(word = myNames, freq = wordResult)
+> head(df)
+
 
 
 
