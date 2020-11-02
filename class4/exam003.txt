@@ -70,6 +70,52 @@ transactions in sparse format with
      lhs                rhs      support   confidence coverage  lift     count
 [1]  {}              => {투자}   0.2861190 0.2861190  1.0000000 1.000000 101  
 
+# 7 연관규칙 생성
+> data("Adult")
+> Adult
+> dim(Adult)
+> inspect(Adult)
+>
+# item set 수를 발견
+# income 내용이 "small"이나 "large" 내용을 모두 포함하지 않도록 지정하고,
+# parameter의 target을 frequent로 지정하여 item set 수를 발견 (2066개)
+> apr1 <- apriori(Adult,
++ parameter = list(support = 0.1, target = "frequent"),
++ appearance = list(none = c("income=small", "income=large"),
++ default = "both"))
+writing ... [2066 set(s)] done [0.00s].
+creating S4 object  ... done [0.01s].
+> apr1
+set of 2066 itemsets 
+>
+
+# 8 rules 수를 발견
+# income 내용이 "small"이나 "large" 내용을 모두 포함하지 않도록 지정하고,
+# parameter의 target을 rules로 지정하여 rules 수를 발견 (4,993개)
+> apr2 <- apriori(Adult, 
++ parameter = list(support = 0.1, target = "rules"), 
++ appearance = list(none = c("income=small", "income=large"),
++ default = "both"))
+checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.08s].
+writing ... [4993 rule(s)] done [0.00s].
+creating S4 object  ... done [0.01s].
+> apr2
+set of 4993 rules 
+> 
+
+# 9 지지도와 신뢰도 비율을 높인 경우
+# 지지도와 신뢰도를 각각 supp = 0.5, conf = 0.9 로 높이는 경우
+# 발견된 rules 수는 현저하게 낮아져서 53개 규칙 발견
+> apr3 <- apriori(Adult, 
++ parameter = list(supp = 0.5, conf = 0.9, target = "rules"),
++ appearance = list(none = c("income=small", "income=large"),
++ default = "both"))
+riting ... [52 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+> apr3
+set of 52 rules 
+
+
 
 
 
