@@ -115,7 +115,7 @@ creating S4 object  ... done [0.00s].
 > apr3
 set of 52 rules 
 
-# 연관어 시각화
+# 10 연관어 시각화
 # vertex.label : 레이블 이름
 # vertex.label.cex : 레이블 크기
 # vertext.label.color : 레이블 색
