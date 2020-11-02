@@ -3,4 +3,12 @@
 # 1 상관관계 분석
 > setwd("C:/workspace/rstudio-master/data")
 > product <- read.csv("014product.csv", header = TRUE)
-
+> summary(product)
+  제품_친밀도     제품_적절성     제품_만족도   
+ Min.   :1.000   Min.   :1.000   Min.   :1.000 
+ 
+ # 표준편차 : sd(x)
+> sd(product$제품_친밀도); sd(product$제품_적절성); sd(product$제품_만족도)
+[1] 0.9703446
+[1] 0.8596574
+[1] 0.8287436
