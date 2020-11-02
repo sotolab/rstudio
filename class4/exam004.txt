@@ -30,10 +30,18 @@
 > news_pre <- gsub('\\s+', ' ', news_pre)
 > news_pre
 
-# 4 파일로 저장
-> 
+# 4 파일로 저장 및 불러오기
+> setwd("C:/workspace/rstudio-master/data")
 > news_data <- news_pre[1:24]
 > news_data
 > write.csv(news_data, "news_data.csv", quote = F)
+> news_data <- read.csv("news_data.csv", header = T, stringsAsFactors = F)
+> str(news_data)
+> names(news_data) <- c("no", "news_text")
+> head(news_data)
+  no                                               news_text
+1  1 문 대통령 우리 경제 확연한 성장세 내년 상반기 정상궤도 
+> news_text <- news_data$news_text
+> news_text
 
 
