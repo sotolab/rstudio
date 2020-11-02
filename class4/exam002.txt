@@ -73,6 +73,21 @@ Metadata:  corpus specific: 1, document level (indexed): 0
 Content:  documents: 5
 
 # 4 단어 선별
+# TermDocumentMatrix : 분석에 필요한 단어를 선별하고, 단어/문서 행렬을 생성
+> myCorpusPrepro_term <- TermDocumentMatrix(myCorpusPrepro,
++ control = list(wordLengths = c(4, 16)))
+> myCorpusPrepro_term
+<<TermDocumentMatrix (terms: 4, documents: 76)>>
+Non-/sparse entries: 4/300
+Sparsity           : 99%
+Maximal term length: 7
+Weighting          : term frequency (tf)
+
+> myTerm_df <- as.data.frame(as.matrix(myCorpusPrepro_term))
+> dim(myTerm_df)
+[1]  4 76
+
+# 5 단어 출현 빈도수 
 
 
 
