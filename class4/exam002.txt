@@ -14,3 +14,23 @@
 
 > user_dic <- data.frame( term = c("R프로그래밍", "페이스북","스타", "썬"), tag = 'ncn')
 > buildDictionary(ext_dic = 'sejong', user_dic = user_dic)
+
+1: All
+2: CRAN packages only
+3: None
+
+[Enter]
+
+Are you sure?
+
+1: Yes
+2: No
+
+선택: 1
+
+** testing if installed package keeps a record of temporary installation path
+* DONE (NIADic)
+370961 words dictionary was built.
+
+>
+
