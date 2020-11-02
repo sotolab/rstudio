@@ -1,3 +1,4 @@
+# 프로그램 설치 및 패키지 업데이트
 
 1 R version 3.6.3 download
 http://healthstat.snu.ac.kr/CRAN/bin/windows/base/old/3.6.3/R-3.6.3-win.exe
