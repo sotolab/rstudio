@@ -141,3 +141,31 @@ survey
 # 빈도수 시각화, 파이차트
 > pie(mode_data)
 > 
+
+# 6 인구통계를 이용한 분석
+> setwd("C:/workspace/rstudio-master/data")
+> data <- read.csv("016descriptive.csv", header = TRUE)
+> data$resident2[data$resident == 1] <- "특별시"
+> data$resident2[data$resident >= 2 & data$resident <= 4] <- "광역시"
+> data$resident2[data$resident == 5] <- "시구군"
+> x <- table(data$resident2)
+> x
+
+광역시 시구군 특별시 
+   103     44    132 
+   
+# 비율계산 ( 0 < x < 1 사이의 값)  
+> prop.table(x)
+
+   광역시    시구군    특별시 
+0.3691756 0.1577061 0.4731183 
+> 
+
+# 백분율 적용(소수점 2자리)
+> y <- prop.table(x)
+> round(y * 100, 2)
+
+광역시 시구군 특별시 
+ 36.92  15.77  47.31 
+> 
+
