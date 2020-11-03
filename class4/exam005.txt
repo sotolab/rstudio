@@ -81,5 +81,28 @@
    3650    4000    4250    4280    4500    5000 
 > 
 
+# 서열척도 기술 통계
+# table : 빈도수를 구하는 함수
+> a1 <- c("moon", "star", "sun", "sun", "star")
+> b1 <- c(23, 22, 24, 25, 25)
+> c1 <- c("제주","부산","대전","제주","서울")
+> family <- data.frame(Name = a1, Age = b1, Pos = c1)
+> family
+  Name Age  Pos
+1 moon  23 제주
+2 star  22 부산
+3  sun  24 대전
+4  sun  25 제주
+5 star  25 서울
+
+# 빈도분석
+> table(family$Pos)
+대전 부산 서울 제주 
+   1    1    1    2
+   
+# 빈도수 시각화
+> chart1 <- table(family$Pos)
+> barplot(chart1)
+> 
 
 
