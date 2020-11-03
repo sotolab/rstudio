@@ -4,6 +4,7 @@
 # +-0.7 ~ +-0.4 : 다소 높은 상관관계
 # +-0.4 ~ +-0.2 : 낮은 상관관계
 # +-0.2 : 상관관계 없음
+# 등간척도, 비율척도는 method에서 pearson(피어슨) 적용
 
 # 1 제품 친밀, 적절, 만족도 분석
 > setwd("C:/workspace/rstudio-master/data")
@@ -54,6 +55,7 @@
 [1] 0.7017394
 
 # 4 피어슨 상관관계 계수
+# 적절성과 만족도 칼럼 간의 상관계수(0.766)가 가장 높은 것으로 나타남
 > cor(product, method = "pearson")
             제품_친밀도 제품_적절성 제품_만족도
 제품_친밀도   1.0000000   0.4992086   0.4671450
@@ -61,11 +63,12 @@
 제품_만족도   0.4671450   0.7668527   1.0000000
 > 
 
-# 색상으로 상관관계 
+# 5 색상으로 상관관계 
 install.packages("corrgram")
 library(corrgram)
 
 # 색상 적용
+# 만족도에 가장 큰 영향을 미치는 변수는 제품_적절성(0.77)
 corrgram(product)
 
 # 위쪽에 상관관계 수가
@@ -74,10 +77,13 @@ corrgram(product, upper.panel = panel.conf)
 # 아래쪽에 상관관계 추가
 corrgram(product, lower.panel = panel.conf)
 
-# 밀도곡선, 상관성, 유의확률 추가
+# 6 밀도곡선, 상관성, 유의확률 추가
 > install.packages("PerformanceAnalytics")
 > library(PerformanceAnalytics)
 > chart.Correlation(product, histogram = , pch = "+")
+
+# 서열척도 대상 상관계수
+# 서열척도는 method에서 spearman(스피어만) 적용
 > cor(product, method = "spearman")
             제품_친밀도 제품_적절성 제품_만족도
 제품_친밀도   1.0000000   0.5110776   0.5012007
