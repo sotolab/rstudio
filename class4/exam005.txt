@@ -289,6 +289,6 @@ survey
 대학원졸     70     24.39
 > 
 
-
-
-
+# 리포트 파일로 저장 완료
+> write.csv(report, "repost_resident.csv", quote = F)
+>
