@@ -1,6 +1,6 @@
 # 상관관계 분석
 
-# 1 상관관계 분석
+# 1 제품 친밀, 적절, 만족도 분석
 > setwd("C:/workspace/rstudio-master/data")
 > product <- read.csv("016product.csv", header = TRUE)
 > head(product)
@@ -13,8 +13,7 @@
 6           3           3           3
 >
 
-# 2 summary 
-# 기술통계량
+# 2 기술통계량
 #  최소값Min, 1사분위수1st Qu, 중앙값Median, 평균Mean, 3사분위수3rd Qu, 최대값Max
 > summary(product)
   제품_친밀도     제품_적절성     제품_만족도   
@@ -25,13 +24,13 @@
  3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:4.000  
  Max.   :5.000   Max.   :5.000   Max.   :5.000  
  
- # 표준편차 : sd(x)
+# 3 표준편차 : sd(x)
 > sd(product$제품_친밀도); sd(product$제품_적절성); sd(product$제품_만족도)
 [1] 0.9703446
 [1] 0.8596574
 [1] 0.8287436
 
-# 상관계수보기
+# 3 상관계수보기
 # mothod : pearson, kendall, spearman
 > cor(product$제품_친밀도, product$제품_적절성)
 [1] 0.4992086
@@ -42,7 +41,7 @@
 > cor(product$제품_적절성 + product$제품_친밀도, product$제품_만족도)
 [1] 0.7017394
 
-# 피어슨 상관관계 계수
+# 4 피어슨 상관관계 계수
 > cor(product, method = "pearson")
             제품_친밀도 제품_적절성 제품_만족도
 제품_친밀도   1.0000000   0.4992086   0.4671450
