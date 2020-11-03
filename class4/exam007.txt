@@ -115,6 +115,11 @@ The p-value is 0.0232
 # 주성분 분석의 가정에 의해서 3개 요인으로 분석
 # Uniquenesses에서 0.5 이하이면 유효한 것으로 판단함(6개 모두 유효함)
 # Loadings : 요인 적재값을 보여주는 항목
+# 요인 적재값은 +0.4 이상이면 유의한 값으로 판단
+# +0.4 미만이면 중요도가 낮은 변수로 판단
+# Factor1에서 s5와 s6 변수의 적재값이 가장 높음
+# Factor2에서 s3과 s4 변수의 적재값이 가장 높음
+# Factor3에서 s1과 s2 변수의 적재값이 가장 높음
 > result <- factanal(subject, 
 +factor = 3, 
 +rotation = "varimax", 
