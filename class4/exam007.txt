@@ -195,3 +195,21 @@ The degrees of freedom for the model is 0 and the fit was 0.7745
 + labels = rownames(result$loadings), 
 + cex = 0.8, pos= 3, col = "red")
 
+
+# 7 3차원 산점도로 요인적재량 시각화 
+> library(scatterplot3d)
+> 
+# 요인점수별 분류 및 3차원 프레임 생성
+# type = 'p' : 기본 산점도 표시
+> Factor1 <- result$scores[ , 1]
+> Factor2 <- result$scores[ , 2]
+> Factor3 <- result$scores[ , 3]
+> d3 <- scatterplot3d(Factor1, Factor2, Factor3, type = 'p')
+
+# 요인적재량 표시
+> loadings1 <- result$loadings[ , 1]
+> loadings2 <- result$loadings[ , 2]
+> loadings3 <- result$loadings[ , 3]
+> d3$points3d(loadings1, loadings2, loadings3, 
++ bg = 'red', pch = 21, cex = 2, type = 'h')
+> 
