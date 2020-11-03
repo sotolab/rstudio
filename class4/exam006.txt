@@ -60,3 +60,18 @@
 제품_적절성   0.4992086   1.0000000   0.7668527
 제품_만족도   0.4671450   0.7668527   1.0000000
 > 
+
+# 색상으로 상관관계 
+install.packages("corrgram")
+library(corrgram)
+
+# 색상 적용
+corrgram(product)
+
+# 위쪽에 상관관계 수가
+corrgram(product, upper.panel = panel.conf)
+
+# 아래쪽에 상관관계 추가
+corrgram(product, lower.panel = panel.conf)
+
+
