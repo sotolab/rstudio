@@ -7,6 +7,7 @@
 # max : 최대값
 # 최소값Min, 최대값Max, 1사분위수1st Qu (25%) 
 # 중앙값Median, 평균Mean, 3사분위수3rd Qu (75%)
+# na.rm = T : 결측치 데이터 제거(NA)
 
 # 1 분산(variance)
 # 관찰값들이 평균(mean)으로부터 얼마나 퍼져있는지 나타냄
