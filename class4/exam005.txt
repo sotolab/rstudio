@@ -3,6 +3,8 @@
 # sd : 표준편차
 # min : 최솟값
 # max : 최대값
+# 최솟값Min, 최댓값Max, 1사분위수1st Qu (25%) 
+# 중앙값Median, 평균Mean, 3사분위수3rd Qu (75%)
 
 # 1 분산(variance)
 # 관찰값들이 평균(mean)으로부터 얼마나 퍼져있는지 나타냄
