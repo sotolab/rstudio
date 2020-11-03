@@ -80,6 +80,67 @@ s6 -0.62627585 -0.79688923 0.44287589  0.4399890  0.8733514  1.0000000
 # 요인 해석이 어려운 경우 요인축을 회전시켜서 요인 해석을 용이하게 하는 방법
 # factanal : 요인분석에서 베리맥스 회전법 사용
 # factors : 요인 수
-# rotation : 요인회전법
+# rotation : 요인회전법 (varimax, promax, none)
+# scores: 요인점수 계산방법
+# 주성분 분석의 가정에 의해서 2개 요인으로 분석
+# p-value 값이 0.05 미만이면 요인수가 부족하다는 의미로 요인수를 늘려서 다시 분석 
+> result <- factanal(subject, factors = 2, rotation = "varimax")
+> result 
 
+Call:
+factanal(x = subject, factors = 2, rotation = "varimax")
+
+Uniquenesses:
+   s1    s2    s3    s4    s5    s6 
+0.250 0.015 0.005 0.136 0.407 0.107 
+
+Loadings:
+   Factor1 Factor2
+s1  0.862         
+s2  0.988         
+s3          0.997 
+s4 -0.115   0.923 
+s5 -0.692   0.338 
+s6 -0.846   0.421 
+
+               Factor1 Factor2
+SS loadings      2.928   2.152
+Proportion Var   0.488   0.359
+Cumulative Var   0.488   0.847
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 11.32 on 4 degrees of freedom.
+The p-value is 0.0232 
+
+# 주성분 분석의 가정에 의해서 3개 요인으로 분석
+# Uniquenesses에서 0.5 이하이면 유효한 것으로 판단함(6개 모두 유효함)
+# Loadings : 요인 적재값을 보여주는 항목
+> result <- factanal(subject, 
++factor = 3, 
++rotation = "varimax", 
++scores = "regression")
+> result
+
+Call:
+factanal(x = subject, factors = 3, scores = "regression", rotation = "varimax")
+
+Uniquenesses:
+   s1    s2    s3    s4    s5    s6 
+0.005 0.056 0.051 0.005 0.240 0.005 
+
+Loadings:
+   Factor1 Factor2 Factor3
+s1 -0.379           0.923 
+s2 -0.710   0.140   0.649 
+s3  0.236   0.931   0.166 
+s4  0.120   0.983  -0.118 
+s5  0.771   0.297  -0.278 
+s6  0.900   0.301  -0.307 
+
+               Factor1 Factor2 Factor3
+SS loadings      2.122   2.031   1.486
+Proportion Var   0.354   0.339   0.248
+Cumulative Var   0.354   0.692   0.940
+
+The degrees of freedom for the model is 0 and the fit was 0.7745 
 
