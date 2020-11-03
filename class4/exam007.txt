@@ -120,6 +120,10 @@ The p-value is 0.0232
 # Factor1에서 s5와 s6 변수의 적재값이 가장 높음
 # Factor2에서 s3과 s4 변수의 적재값이 가장 높음
 # Factor3에서 s1과 s2 변수의 적재값이 가장 높음
+# SS loadings 는 variance explained 수치이며, Factor1이 2.122로 가장 높음
+# Proportion Var 는 요인의 분산 비율로 variance explained의 비율
+# Cumulative Var 는 누적 분산 비율로 요인의 분산 비율을 누적하여 제시한 값
+# 정보손실은 1 - 0.940 = 0.06 이므로 적정한 상태(손실이 너무 크면 요인 분석의 의미가 없어짐)
 > result <- factanal(subject, 
 +factor = 3, 
 +rotation = "varimax", 
@@ -148,4 +152,42 @@ Proportion Var   0.354   0.339   0.248
 Cumulative Var   0.354   0.692   0.940
 
 The degrees of freedom for the model is 0 and the fit was 0.7745 
+
+# 6 요인적재량
+> attributes(result)
+
+# 기본 적재량 보기
+> result$loadings
+
+# 요인부하량 0.5 이상, 소수점 2자리 표기
+> print(result, digits = 2, cutoff = 0.5)
+
+# 모든 요인적재량 보기
+> print(result$loadings, cutoff = 0)
+
+
+# 6 요인점수를 이용한 요인적재량 시각화 
+# Factor1과 Factor2 요인적재량 시각화 
+> plot(result$scores[ , c(1:2)],
++ main = "Factor1과 Factor2 요인점수 행렬")
+> text(result$scores[ , 1], result$scores[ , 2],
++ labels = name, cex = 0.7, pos = 3, col = "blue")
+> 
+# 요인적재량 추가
+> points(result$loadings[ , c(1:2)], pch = 19, col = "red")
+> text(result$loadings[ , 1], result$loadings[ , 2],
++ labels = rownames(result$loadings),
++ cex = 0.8, pos = 3, col = "red")
+
+# Factor1과 Factor3 요인적재량 시각화
+> plot(result$scores[ , c(1, 3)],
++ main = "Factor1과 Factor3 요인점수 행렬")
+> text(result$scores[ , 1], result$scores[ , 3],
++ labels = name, cex = 0.7, pos = 3, col = "blue")
+
+#  요인적재량 추가 
+> points(result$loadings[ , c(1, 3)], pch = 19, col = "red")
+> text(result$loadings[ , 1], result$loadings[ , 3],
++ labels = rownames(result$loadings), 
++ cex = 0.8, pos= 3, col = "red")
 
