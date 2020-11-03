@@ -201,12 +201,18 @@ The degrees of freedom for the model is 0 and the fit was 0.7745
 > 
 # 요인점수별 분류 및 3차원 프레임 생성
 # type = 'p' : 기본 산점도 표시
+# 첫 번째 요인 변수는 밑변
+# 두 번째 요인 변수는 오른쪽
+# 세 번째 요인 변수는 왼쪽
 > Factor1 <- result$scores[ , 1]
 > Factor2 <- result$scores[ , 2]
 > Factor3 <- result$scores[ , 3]
 > d3 <- scatterplot3d(Factor1, Factor2, Factor3, type = 'p')
 
 # 요인적재량 표시
+# s1과 s2는 Factor3
+# s3와 s4는 Factor2
+# s5와 s6는 Factor3
 > loadings1 <- result$loadings[ , 1]
 > loadings2 <- result$loadings[ , 2]
 > loadings3 <- result$loadings[ , 3]
