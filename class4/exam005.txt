@@ -145,80 +145,84 @@ survey
 # 6 인구통계를 이용한 분석
 > setwd("C:/workspace/rstudio-master/data")
 > data <- read.csv("016descriptive.csv", header = TRUE)
+>
+# 거주지역 비율 계산
 > data$resident2[data$resident == 1] <- "특별시"
 > data$resident2[data$resident >= 2 & data$resident <= 4] <- "광역시"
 > data$resident2[data$resident == 5] <- "시구군"
 > x <- table(data$resident2)
-> x
-
-광역시 시구군 특별시 
-   103     44    132 
-   
-# 비율계산 ( 0 < x < 1 사이의 값)  
 > prop.table(x)
 
    광역시    시구군    특별시 
 0.3691756 0.1577061 0.4731183 
-> 
-
-# 백분율 적용(소수점 2자리)
 > y <- prop.table(x)
-> round(y * 100, 2)
+> y2 <- round(y * 100, 2)
+> tmp <- list(x, y2)
+> tmp
+[[1]]
+
+광역시 시구군 특별시 
+   103     44    132 
+
+[[2]]
 
 광역시 시구군 특별시 
  36.92  15.77  47.31 
+
+# 리스트를 열 단위로 바인딩
+> resident <- do.call(cbind, tmp)
+
+# 기술보고서 작성을 위한 family 변수 생성
+> report <- resident
+> report
+       [,1]  [,2]
+광역시  103 36.92
+시구군   44 15.77
+특별시  132 47.31
+
+# 열 name명 지정
+> colnames(report) <- c("빈도수", "구성비율%")
+> report
+       빈도수 구성비율%
+광역시    103     36.92
+시구군     44     15.77
+특별시    132     47.31
+> 
 > 
 
 # 성별 비율 계산
 > data$gender2[data$gender == 1] <- "남자"
 > data$gender2[data$gender == 2] <- "여자"
-> 
 > x <- table(data$gender2)
 > prop.table(x)
 
      남자      여자 
 0.5824916 0.4175084 
 > y <- prop.table(x)
-> round(y * 100, 2)
+> y2 <- round(y * 100, 2)
+> tmp <- list(x, y2)
+> tmp
+[[1]]
+
+남자 여자 
+ 173  124 
+
+[[2]]
 
  남자  여자 
 58.25 41.75 
+
+> gender <- do.call(cbind, tmp)
+> report = rbind(report, gender)
+> report
+       빈도수 구성비율%
+광역시    103     36.92
+시구군     44     15.77
+특별시    132     47.31
+남자      173     58.25
+여자      124     41.75
+> 
 > 
 
-# 나이 비율 계산
-> data <- read.csv("016descriptive.csv", header = TRUE)
-> data$age2[data$age <= 45] <- "중년층"
-> data$age2[data$age >= 46 & data$age <= 69] <- "장년층"
-> data$age2[data$age >= 70] <- "노년층"
-> x <- table(data$age2)
-> x
 
-노년층 장년층 중년층 
-     9    269     22 
-> prop.table(x)
-
-    노년층     장년층     중년층 
-0.03000000 0.89666667 0.07333333 
-> y <- prop.table(x)
-> round(y * 100, 2)
-
-노년층 장년층 중년층 
-  3.00  89.67   7.33 
-> 
-
-# 학력 수준 비율 계산
-> data$level2[data$level == 1] <- "고졸"
-> data$level2[data$level == 2] <- "대졸"
-> data$level2[data$level == 3] <- "대학원졸"
-> x <- table(data$level2)
-> x
-
-    고졸     대졸 대학원졸 
-     117      100       70 
-> prop.table(x)
-
-     고졸      대졸  대학원졸 
-0.4076655 0.3484321 0.2439024 
-> y <- prop.table(x)
-> round(y * 100, 2)
 
