@@ -30,7 +30,7 @@
 > xy4 <- c(1,1,1,2,2)
 > 
 
-# A와 B회사의 연봉의 격차 비교
+# 3 A와 B회사의 연봉의 격차 비교
 > A <- c(1200, 1600, 5600, 6000, 7000)
 > B <- c(4000, 4500, 4250, 5000, 3650)
 
@@ -62,12 +62,12 @@
 [1] 2681.79
 [1] 510.6369
 
-# 최솟값
+# 최소값
 > min(A);min(B)
 [1] 1200
 [1] 3650
 
-# 최댓값
+# 최값
 > max(A);max(B)
 [1] 7000
 [1] 5000
@@ -81,7 +81,7 @@
    3650    4000    4250    4280    4500    5000 
 > 
 
-# 서열척도 기술 통계
+# 4 서열척도 기술 통계
 # table : 빈도수를 구하는 함수
 > a1 <- c("moon", "star", "sun", "sun", "star")
 > b1 <- c(23, 22, 24, 25, 25)
@@ -105,4 +105,38 @@
 > barplot(chart1)
 > 
 
+# 5 등간척도 
+# 설문조사, 문항수 32개
+# 설문 응답 1 매우 만족, 2 만족, 3 보통, 4 불만족, 5 매우 불만족
+> survey_data <- read.csv("015survey.csv", header = T)
+> survey <- survey_data$x
+> survey
+  [1]  1  2  1  4  3  3 NA NA NA  1  2  2  2  2 NA NA NA NA NA NA NA  2  2  1  2  3  3  5  2 NA NA NA
+ [33] NA NA NA NA NA NA  2  2  3  4  3  2  2  3  4  5  4  2 NA  2  3  4  3 NA NA NA NA NA NA NA  3  3
+ [65]  3  3  2  2  3  3 NA NA NA  2  2  2 NA  2  2  3 NA NA  3  3  3  3  3  3  3  1  4 NA NA NA NA  4
+ [97]  3  3  4 NA NA NA NA  3  3  2 NA NA  3 NA  2 NA  2  2  5  2 NA  3 NA NA NA NA NA NA NA NA NA NA
+[129]  2  2  4  3  4  3  3  3 NA NA NA  2  2  2  2  2  1  2 NA NA NA NA NA  3  3  3  3  4  3 NA  4  2
+[161]  2  2  2  2 NA NA NA NA  3  3  2 NA  2  3  3  3 NA NA  3  4  3  4 NA NA  3  3  4  2  1  2  4  3
+[193]  3  2  5  2  2  2  2  1  2  4 NA  2  2  1  1  1  2  2 NA NA NA NA NA NA NA NA NA NA  2  3  4  5
+[225]  3  3  4 NA  2  1  2 NA  1  2  2  1  2  2 NA NA  3  4  5  3 NA  3  4  4  5  2  2  3 NA NA  2  1
+[257]  2  1 NA NA  2  3 NA  3  4  3  4  3  4 NA NA NA  2  1  2 NA NA NA NA NA  1  1  2  2 NA NA NA NA
+[289] NA  2  1  2  3  3 NA NA NA NA  3 NA
 
+# 평균값이 2.61 이상으로 의미 있는 설문임
+> summary(survey)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   1.00    2.00    3.00    2.61    3.00    5.00     113 
+
+# 만족, 보통의 비중이 높은 것으로 나타나서 의미 있는 결과임
+> mode_data <- table(survey)
+> mode_data
+survey
+ 1  2  3  4  5 
+20 72 63 25  7 
+
+# 등간척도 시각화, 히스토그램
+> hist(survey)
+
+# 빈도수 시각화, 파이차트
+> pie(mode_data)
+> 
