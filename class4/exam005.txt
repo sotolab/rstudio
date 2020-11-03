@@ -50,3 +50,9 @@
 [1] 7000
 [1] 5000
 > 
+> summary(A);summary(B)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1200    1600    5600    4280    6000    7000 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   3650    4000    4250    4280    4500    5000 
+> 
