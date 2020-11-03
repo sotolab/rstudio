@@ -3,9 +3,9 @@
 # 
 # var : 분산
 # sd : 표준편차
-# min : 최솟값
+# min : 최소값
 # max : 최대값
-# 최솟값Min, 최댓값Max, 1사분위수1st Qu (25%) 
+# 최소값Min, 최대값Max, 1사분위수1st Qu (25%) 
 # 중앙값Median, 평균Mean, 3사분위수3rd Qu (75%)
 
 # 1 분산(variance)
