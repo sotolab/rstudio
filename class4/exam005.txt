@@ -146,7 +146,7 @@ survey
 > setwd("C:/workspace/rstudio-master/data")
 > data <- read.csv("016descriptive.csv", header = TRUE)
 >
-# 거주지역 변수 비율 계산
+# 6-1 거주지역 변수 비율 계산
 > data$resident2[data$resident == 1] <- "특별시"
 > data$resident2[data$resident >= 2 & data$resident <= 4] <- "광역시"
 > data$resident2[data$resident == 5] <- "시구군"
@@ -190,7 +190,7 @@ survey
 > 
 > 
 
-# 성별 변수 비율 계산
+# 6-2 성별 변수 비율 계산
 > data$gender2[data$gender == 1] <- "남자"
 > data$gender2[data$gender == 2] <- "여자"
 > x <- table(data$gender2)
@@ -223,7 +223,7 @@ survey
 여자      124     41.75
 > 
 
-# 나이 변수 비율 계산
+# 6-3 나이 변수 비율 계산
 > data$age2[data$age <= 45] <- "중년층"
 > data$age2[data$age >= 46 & data$age <= 69] <- "장년층"
 > data$age2[data$age >= 70] <- "노년층"
@@ -260,7 +260,7 @@ survey
 중년층     22      7.33
 > 
 
-# 학력레벨 변수 비율 계산
+# 6-4 학력레벨 변수 비율 계산
 > data$level2[data$level == 1] <- "고졸"
 > data$level2[data$level == 2] <- "대졸"
 > data$level2[data$level == 3] <- "대학원졸"
@@ -289,6 +289,6 @@ survey
 대학원졸     70     24.39
 > 
 
-# 리포트 파일로 저장 완료
+# 6-5 리포트 파일로 저장 완료
 > write.csv(report, "repost_resident.csv", quote = F)
 >
