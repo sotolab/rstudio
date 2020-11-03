@@ -146,7 +146,7 @@ survey
 > setwd("C:/workspace/rstudio-master/data")
 > data <- read.csv("016descriptive.csv", header = TRUE)
 >
-# 거주지역 비율 계산
+# 거주지역 변수 비율 계산
 > data$resident2[data$resident == 1] <- "특별시"
 > data$resident2[data$resident >= 2 & data$resident <= 4] <- "광역시"
 > data$resident2[data$resident == 5] <- "시구군"
@@ -190,7 +190,7 @@ survey
 > 
 > 
 
-# 성별 비율 계산
+# 성별 변수 비율 계산
 > data$gender2[data$gender == 1] <- "남자"
 > data$gender2[data$gender == 2] <- "여자"
 > x <- table(data$gender2)
@@ -222,7 +222,73 @@ survey
 남자      173     58.25
 여자      124     41.75
 > 
+
+# 나이 변수 비율 계산
+> data$age2[data$age <= 45] <- "중년층"
+> data$age2[data$age >= 46 & data$age <= 69] <- "장년층"
+> data$age2[data$age >= 70] <- "노년층"
+> x <- table(data$age2)
+> prop.table(x)
+
+    노년층     장년층     중년층 
+0.03000000 0.89666667 0.07333333 
+> y <- prop.table(x)
+> y2 <- round(y * 100, 2)
+> tmp <- list(x, y2)
+> tmp
+[[1]]
+
+노년층 장년층 중년층 
+     9    269     22 
+
+[[2]]
+
+노년층 장년층 중년층 
+  3.00  89.67   7.33 
+
+> age <- do.call(cbind, tmp)
+> report = rbind(report, age)
+> report
+       빈도수 구성비율%
+광역시    103     36.92
+시구군     44     15.77
+특별시    132     47.31
+남자      173     58.25
+여자      124     41.75
+노년층      9      3.00
+장년층    269     89.67
+중년층     22      7.33
 > 
+
+# 학력레벨 변수 비율 계산
+> data$level2[data$level == 1] <- "고졸"
+> data$level2[data$level == 2] <- "대졸"
+> data$level2[data$level == 3] <- "대학원졸"
+> x <- table(data$level2)
+> prop.table(x)
+
+     고졸      대졸  대학원졸 
+0.4076655 0.3484321 0.2439024 
+> y <- prop.table(x)
+> y2 <- round(y * 100, 2)
+> tmp <- list(x, y2)
+> level <- do.call(cbind, tmp)
+> report = rbind(report, level)
+> report
+         빈도수 구성비율%
+광역시      103     36.92
+시구군       44     15.77
+특별시      132     47.31
+남자        173     58.25
+여자        124     41.75
+노년층        9      3.00
+장년층      269     89.67
+중년층       22      7.33
+고졸        117     40.77
+대졸        100     34.84
+대학원졸     70     24.39
+> 
+
 
 
 
