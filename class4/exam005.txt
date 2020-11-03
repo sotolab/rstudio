@@ -169,3 +169,56 @@ survey
  36.92  15.77  47.31 
 > 
 
+# 성별 비율 계산
+> data$gender2[data$gender == 1] <- "남자"
+> data$gender2[data$gender == 2] <- "여자"
+> 
+> x <- table(data$gender2)
+> prop.table(x)
+
+     남자      여자 
+0.5824916 0.4175084 
+> y <- prop.table(x)
+> round(y * 100, 2)
+
+ 남자  여자 
+58.25 41.75 
+> 
+
+# 나이 비율 계산
+> data <- read.csv("016descriptive.csv", header = TRUE)
+> data$age2[data$age <= 45] <- "중년층"
+> data$age2[data$age >= 46 & data$age <= 69] <- "장년층"
+> data$age2[data$age >= 70] <- "노년층"
+> x <- table(data$age2)
+> x
+
+노년층 장년층 중년층 
+     9    269     22 
+> prop.table(x)
+
+    노년층     장년층     중년층 
+0.03000000 0.89666667 0.07333333 
+> y <- prop.table(x)
+> round(y * 100, 2)
+
+노년층 장년층 중년층 
+  3.00  89.67   7.33 
+> 
+
+# 학력 수준 비율 계산
+> data$level2[data$level == 1] <- "고졸"
+> data$level2[data$level == 2] <- "대졸"
+> data$level2[data$level == 3] <- "대학원졸"
+> x <- table(data$level2)
+> x
+
+    고졸     대졸 대학원졸 
+     117      100       70 
+> prop.table(x)
+
+     고졸      대졸  대학원졸 
+0.4076655 0.3484321 0.2439024 
+> y <- prop.table(x)
+> round(y * 100, 2)
+
