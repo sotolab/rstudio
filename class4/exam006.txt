@@ -74,4 +74,14 @@ corrgram(product, upper.panel = panel.conf)
 # 아래쪽에 상관관계 추가
 corrgram(product, lower.panel = panel.conf)
 
+# 밀도곡선, 상관성, 유의확률 추가
+> install.packages("PerformanceAnalytics")
+> library(PerformanceAnalytics)
+> chart.Correlation(product, histogram = , pch = "+")
+> cor(product, method = "spearman")
+            제품_친밀도 제품_적절성 제품_만족도
+제품_친밀도   1.0000000   0.5110776   0.5012007
+제품_적절성   0.5110776   1.0000000   0.7485096
+제품_만족도   0.5012007   0.7485096   1.0000000
+> 
 
