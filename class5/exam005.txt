@@ -1,1 +1,77 @@
-ㅁ
+# 분류분석
+
+# 램덤 포레스트(Random Forest)
+# 1 randomforest 패키지 설치
+> install.packages('randomForest')
+> library(randomForest)
+> data(iris)
+
+# 2 랜덤 포레스트 모델 생성
+# iris의 Species 칼럼을 y 변수로 지정하고, 
+# 나머지 4개의 변수를 x 변수로 formula를 지정하여
+# 랜덤 포레스트 모델을 생성함
+# Number of trees: 500은 학습데이터(forest)로 
+500개의 포레스트가 복원 추출방식으로 생성됨
+# No. of variables tried at each split: 2 두 개의 변수를 이용하여
+# 트리의 자식노드가 분류되었음
+# ntree(트리의 개수)는 500개, mtry(변수의 개수)는 2개
+# 모델의 분류정확도는 오차 비율(error rate: 4.67)과 confusion matrix 제공함
+# confusion matrix는 50, 47, 46의 합을 iris의 관측지 수로 나누면
+# 분류정확도는 약 95.3%
+> model = randomForest(Species~., data=iris)  
+> model
+
+Call:
+ randomForest(formula = Species ~ ., data = iris) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4.67%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          4        46        0.08
+> model2 = randomForest(Species~., data=iris, 
++ ntree=300, mtry=4, na.action=na.omit )
+> model2
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = 300,      mtry = 4, na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 300
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+> model3 = randomForest(Species ~ ., data=iris, 
++ ntree=500, mtry=2, 
++ importance = T,
++ na.action=na.omit )
+> model3
+
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = 500,      mtry = 2, importance = T, na.action = na.omit) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06
+> importance(model3)
+                setosa versicolor virginica MeanDecreaseAccuracy MeanDecreaseGini
+Sepal.Length  6.737405   8.208888  8.519668            11.686536        10.997891
+Sepal.Width   4.863254   1.432141  4.745684             5.588639         2.408092
+Petal.Length 22.803182  33.677098 27.235597            33.707745        42.863475
+Petal.Width  21.978670  30.088545 29.109913            31.640008        42.958442
+> varImpPlot(model3)
+> 
