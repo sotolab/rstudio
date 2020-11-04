@@ -92,8 +92,8 @@ result_pred
 result_pred  0  1
           0 84 11
           1  6  9
-> (84 + 11) / nrow(test) # 0.8727273 = 87%
-[1] 0.8636364
+> (84 + 9) / nrow(test) 
+[1] 0.8157895
 >
 
 # 8 ROC Curve 모델 평가
