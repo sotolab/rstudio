@@ -74,8 +74,22 @@ Number of observations:  153
 > t <- sample(1:nrow(mpg), 120) 
 > train <- mpg[t, ] 
 > test <- mpg[-t, ]  
+> dim(train)
+[1] 120  11
+> 
 > dim(test)
 [1] 114  11
+> 
+
+# 수식 작성과 분류모델 생성
+# 구동방식 요인형 변환
+# 수식 작성
+# tree 모델 생성
+# tree 모델 시각화
+> test$drv <- factor(test$drv)
+> formula <- hwy ~ displ + cyl + drv
+> hwy_ctree <- ctree(formula, data=test) 
+> plot(hwy_ctree) 
 >
 
 
