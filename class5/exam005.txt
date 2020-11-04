@@ -91,7 +91,7 @@ virginica       0          3        47        0.06
 # MeanDecreaseAccuracy는 분류정확도를 개선하는 데 기여한 변수를 수치로 제공
 # MeanDecreaseGini는 노드 불순도(불확실성)를 개선하는 데 기여한 변수를 수치로 제공
 # iris의 꼭츼 종류를 분류하는 데 있어 4개의 x변수 중에서
-# 가장 크게 기여하는 변수(중요변수)는 Petal.Length로 나타남
+# 가장 크게 기여하는 변수(중요변수)는 Petal.Length(꽃잎의 길이)로 나타남
 > importance(model3)
                 setosa versicolor virginica MeanDecreaseAccuracy MeanDecreaseGini
 Sepal.Length  6.737405   8.208888  8.519668            11.686536        10.997891
