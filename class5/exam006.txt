@@ -1,0 +1,91 @@
+# 분석분류
+# 인공신경망 
+
+# neuralnet 패키지 설치
+> install.packages('neuralnet')
+> library(neuralnet)
+
+# 학습데이터와 검정데이터
+# 70%, 30% 비율로 나눔
+> data("iris")
+> idx = sample(1:nrow(iris), 0.7*nrow(iris))
+> training_iris = iris[idx, ]
+> testing_iris = iris[-idx, ]
+> dim(training_iris)
+[1] 105   5
+> dim(testing_iris)
+[1] 45  5
+
+# 수치형으로 칼럼 생성
+# 출력변수(y)가 수치형이어야 하기 때문에 
+# 기존의 species 칼럼을 대상으로 꽃의 종(setosa, versicolor, virginica)에 따라서
+# 1,2,3으로 코딩 변경하여 species 변수를 생성
+> training_iris$Species2[training_iris$Species == 'setosa'] <- 1
+> training_iris$Species2[training_iris$Species == 'versicolor'] <- 2
+> training_iris$Species2[training_iris$Species == 'virginica'] <- 3
+> training_iris$Species <- NULL
+> head(training_iris)
+
+> testing_iris$Species2[testing_iris$Species == 'setosa'] <- 1
+> testing_iris$Species2[testing_iris$Species == 'versicolor'] <- 2
+> testing_iris$Species2[testing_iris$Species == 'virginica'] <- 3
+> testing_iris$Species <- NULL
+> head(testing_iris)
+
+# 데이터 정규화 함수 생성
+# 정규화(Normalization): 테이터의 범위로 칼럼값을 정규화할 수 있는 사용자 함수 정의
+> normal <- function(x){
++ return (( x - min(x)) / (max(x) - min(x)))
++ }
+>
+
+# 정규화 함수를 활용한 학습/검정데이터 정규화
+# lapply 활용하여 학습/검정데이터의 칼럼을 대상으로 0과 1사아의 값으로 정규화함
+> training_nor <- as.data.frame(lapply(training_iris, normal))
+> summary(training_nor)
+
+> testing_nor <- as.data.frame(lapply(testing_iris, normal))
+> summary(testing_nor)
+
+# 인공신경망 모델 생성
+# 은닉 노드 1개
+# hidden = 1 : 은닉층 수
+# learningrate=0.01 : 학습비율지정
+> model_net = neuralnet(Species2 ~ Sepal.Length+Sepal.Width+Petal.Length+Petal.Width,
++ data=training_nor, hidden = 1)
+> model_net
+
+# 인공신경망 시각화
+# 은닉층의 노드가 1개를 갖는 모델을 생성
+# 입력층에서 4개의 입력 변수에 대한 가중치와 경계값(bias) 가중치가 은닉층으로 전달
+# 은닉층의 결과에 대한 가중치와 경계값 가중치가 출력층으로 전달되는 과정을 보여 줌
+> plot(model_net)
+
+# 분류모델 성능 평가
+# 모델의 예측치 생성
+> model_result <- compute(model_net, testing_nor[c(1:4)])
+> model_result$net.result
+
+# 상관계수로 두 변수 간의 선형관계의 강도 측정 
+# 예측된 꽃의 종과 실체 관측치(testing_nor) 사이의 상관관계를 측정
+> cor(model_result$net.result, testing_nor$Species2)
+          [,1]
+[1,] 0.9724915
+> 
+
+# 분류모델 성능 향상
+# 은닉층의 노드를 증가시키거나 역전파 알고리즘 등을 적용하여 분류모델의 성능을 높일 수 있음
+# 하지만 무조건 은닉층을 증가시킨다고 분류의 정확도가 높아지는 것은 아님
+# algorithm="backprop" :  역전파를 통해서 가중치와 경계값을 조정하여 오차(E)를 줄이기 위해서 사용
+# learningrate=0.01 : 역전파 알고리즘을 적용할 경우 학습비율을 지정하는 속성으로 1%를 지정함
+# 은닉노드 2개, backprop 적용 
+# 인공신경망 모델 생성 
+> model_net2 = neuralnet(Species2 ~ Sepal.Length+Sepal.Width+Petal.Length+Petal.Width,
++ data=training_nor, hidden = 2, algorithm="backprop", learningrate=0.01 ) 
+
+# 분류모델 예측치 생성과 평가 
+> model_result2 <- compute(model_net2, testing_nor[c(1:4)])
+> cor(model_result2$net.result, testing_nor$Species2)  
+          [,1]
+[1,] 0.9726522
+> 
