@@ -1,1 +1,69 @@
-exam001.txt
+
+
+# 2 다중 회귀 분석
+# 2-1 변수 모델링
+> y = product$제품_만족도
+> x1 = product$제품_친밀도
+> x2 = product$제품_적절성
+> df <- data.frame(x1, x2, y)
+> 
+
+# 2-2 다중 회귀분석
+# 절편 x1 : 0.0959, 기울기 x2 : 0.6852
+> result.lm <- lm(formula = y ~x1 + x2, data = df)
+> result.lm
+
+Call:
+lm(formula = y ~ x1 + x2, data = df)
+
+Coefficients:
+(Intercept)           x1           x2  
+    0.66731      0.09593      0.68522  
+
+> 
+
+# 2-3 다중 공선성 문제 확인
+# vif : 분산팽창요인(VIF)
+# VIF 값이 10이상이면 다중 공선성 문제를 의심해 볼 수 있음
+> library(car)
+필요한 패키지를 로딩중입니다: carData
+> vif(result.lm)
+      x1       x2 
+1.331929 1.331929 
+
+# 2-4 다중 회귀분석 결과 확인
+# 제품 적절성이 제품만족도에 미치는 영향은
+# t = 15.684, p = < 2e - 16이고
+# 제품친밀도가 제품만족도에 미치는 영향은
+# t = 2.478, p = .014
+# 제품의 적절성과 제품의 친밀도는 
+# 모두 유의수준에서 제품만족도에 영향을 미친다고 볼 수 있음 -> 연구 가설 채택
+# 유의수준 0.05보다 매우 작기 때문에 (0.05 이상이면 회귀선 모델 부적합) 제품만족도에 영향을 미침
+# 회귀모형은 상관계수 R = .0598로 독립변수와 종속변수 간에 다소 높은 상관관계
+# R2 = .594로 독립변수가 종속변수로 59.5%
+# 회귀모형의 적합성은 F = 193.8 (p =< 2.2e-16)로 모형이 적합함
+# 표준화된 계수의 베타(Beta) 값을 토대로 '제품적절성'이 0.685로 
+# 가장 높은 수치를 나타냈기 때문에 독립변수 중에서 제품적절성이 
+# 제품만족도에 가장 큰 영향력을 줌
+> summary(result.lm)
+
+Call:
+lm(formula = y ~ x1 + x2, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.01076 -0.22961 -0.01076  0.20809  1.20809 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.66731    0.13094   5.096 6.65e-07 ***
+x1           0.09593    0.03871   2.478   0.0138 *  
+x2           0.68522    0.04369  15.684  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5278 on 261 degrees of freedom
+Multiple R-squared:  0.5975,	Adjusted R-squared:  0.5945 
+F-statistic: 193.8 on 2 and 261 DF,  p-value: < 2.2e-16
+
+> 
