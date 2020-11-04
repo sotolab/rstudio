@@ -1,6 +1,12 @@
 # 분류분석
 
 # 3 램덤 포레스트(Random Forest)
+# formula: y ~ x 형식으로 반응변수와 설명변수 식
+# data: 모델 생성에 사용될 데이터 셋
+# ntree: 복원 추출하여 생성할 트리 수 지정
+# mtry: 자식 노드를 분류할 변수 수 지정
+# na.action: 결측치(NA)를 제거할 함수 지정
+# importance: 분류모델 생성과정에서 중요 변수 정보 제공 
 # randomforest 패키지 설치
 > install.packages('randomForest')
 > library(randomForest)
@@ -90,7 +96,7 @@ virginica       0          3        47        0.06
 # 입력 변수 중 가장 중요한 변수가 어떤 변수인가를 알려주는 역할을 함
 # MeanDecreaseAccuracy는 분류정확도를 개선하는 데 기여한 변수를 수치로 제공
 # MeanDecreaseGini는 노드 불순도(불확실성)를 개선하는 데 기여한 변수를 수치로 제공
-# iris의 꼭츼 종류를 분류하는 데 있어 4개의 x변수 중에서
+# iris의 꽃의 종류를 분류하는 데 있어 4개의 x변수 중에서
 # 가장 크게 기여하는 변수(중요변수)는 Petal.Length(꽃잎의 길이)로 나타남
 > importance(model3)
                 setosa versicolor virginica MeanDecreaseAccuracy MeanDecreaseGini
