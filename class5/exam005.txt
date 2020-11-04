@@ -1,12 +1,12 @@
 # 분류분석
 
-# 램덤 포레스트(Random Forest)
-# 1 randomforest 패키지 설치
+# 3 램덤 포레스트(Random Forest)
+# randomforest 패키지 설치
 > install.packages('randomForest')
 > library(randomForest)
 > data(iris)
 
-# 2 랜덤 포레스트 모델 생성
+# 3-1 랜덤 포레스트 모델 생성
 # iris의 Species 칼럼을 y 변수로 지정하고, 
 # 나머지 4개의 변수를 x 변수로 formula를 지정하여
 # 랜덤 포레스트 모델을 생성함
@@ -39,7 +39,7 @@ virginica       0          4        46        0.08
 [1] 0.9533333
 > 
 
-# 파라미터 조정
+# 3-2 파라미터 조정
 # 트리 개수 300개, 변수 개수 4개 지정
 # na.action=na.omit : 측결치 제거
 > model2 = randomForest(Species~., data=iris, 
@@ -64,7 +64,7 @@ virginica       0          3        47        0.06
 > (50+47+47) / nrow(iris)
 [1] 0.96
 
-# 중요 변수를 생성하여 랜덤 포레스트 모델 생성
+# 3-3 중요 변수를 생성하여 랜덤 포레스트 모델 생성
 > model3 = randomForest(Species ~ ., data=iris, 
 + ntree=500, mtry=2, 
 + importance = T,
@@ -85,7 +85,7 @@ setosa         50          0         0        0.00
 versicolor      0         47         3        0.06
 virginica       0          3        47        0.06
 
-# 중요 변수 확인
+# 3-4 중요 변수 확인
 # 분류모델을 생성하는 과정에서
 # 입력 변수 중 가장 중요한 변수가 어떤 변수인가를 알려주는 역할을 함
 # MeanDecreaseAccuracy는 분류정확도를 개선하는 데 기여한 변수를 수치로 제공
@@ -99,6 +99,6 @@ Sepal.Width   4.863254   1.432141  4.745684             5.588639         2.40809
 Petal.Length 22.803182  33.677098 27.235597            33.707745        42.863475
 Petal.Width  21.978670  30.088545 29.109913            31.640008        42.958442
 
-# 중요 변수 시각화
+# 3-5 중요 변수 시각화
 > varImpPlot(model3)
 > 
