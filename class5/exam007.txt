@@ -1,6 +1,7 @@
 # 연관분석
 
-# 1 트랜잭션 객체 생성
+# 1 연관분석
+# 1-1 트랜잭션 객체 생성
 > install.packages("arules")
 > library(arules)
 > setwd("C:/workspace/rstudio-master/data")
@@ -9,6 +10,7 @@
 transactions in sparse format with
  6 transactions (rows) and
  5 items (columns)
+ 
 > inspect(tran)
     items           
 [1] {라면,맥주,우유}
@@ -19,7 +21,7 @@ transactions in sparse format with
 [6] {과일,우유}     
 > 
 
-# 2 규칙발견 1
+# 1-2 규칙발견 1
 # 지지도가 0.3이고 신뢰도가 0.1인 경우에는 16개의 규칙이 발견됨
 > rule<- apriori(tran, parameter = list(supp=0.3, conf=0.1))
 Apriori
@@ -63,7 +65,7 @@ creating S4 object  ... done [0.00s].
 [16] {라면,우유} => {고기} 0.3333333 0.6666667  0.5000000 1.000 2    
 
 
-# 3 규칙발견 2
+# 1-3 규칙발견 2
 # 지지도가 0.1이고 신뢰도가 0.1인 경우에는 35개의 규칙이 발견됨
 > rule<- apriori(tran, parameter = list(supp=0.1, conf=0.1))
 Apriori
@@ -98,6 +100,7 @@ creating S4 object  ... done [0.00s].
 # 맥주와 고기는 구매의 관련성이 떨어지기 때문에 두 상품은 근거리에 두지 않아도 됨
 # [30] {라면,맥주} => {우유} 조합은향상도(1.2)가 1 이상으로 나타났기 때문에 
 # 두 상품 간의 상관성이 높다고 볼 수 있음
+
 > inspect(rule)
      lhs            rhs    support   confidence coverage  lift  count
 [1]  {}          => {과일} 0.3333333 0.3333333  1.0000000 1.000 2    
@@ -120,7 +123,7 @@ creating S4 object  ... done [0.00s].
 [30] {라면,맥주} => {우유} 0.1666667 1.0000000  0.1666667 1.200 1    
 ...  
 
-# 4 트랜잭션 생성
+# 1-4 트랜잭션 생성
 # read.transactions 트랜잭션 객체 생성 함수
 # format: 트랜잭션 데이터 셋의 형식 지정
 # single: 트랜잭션 구분자에 의해서 상품이 대응된 경우
@@ -140,13 +143,15 @@ creating S4 object  ... done [0.00s].
 # 상품이 콤마로 구분되어 있으며, 중복된 트랜잭션이 존재하는 경우 해당 트랜잭션을 제거
 > stran2<- read.transactions("020single_format.csv", format="single", sep=",", 
 + cols=c(1,2), rm.duplicates=T)
+
 > stran2
 transactions in sparse format with
  248 transactions (rows) and
  68 items (columns)
+ 
 > inspect(stran2)
 
-# 요약통계량
+# 1-5 요약통계량
 # sizes의 첫 줄은 item수, 두 번째 줄은 transaction 수
 # item 수가 1개로 구성된 transaction 수가 12개라는 의미
 # 248개 transaction에 대한 기술통계 제공
@@ -181,7 +186,7 @@ includes extended transaction information - examples:
 
 > inspect(stran2)
 
-# 규칙 생성
+# 1-6 규칙 생성
 # 지지율 0.1, 신뢰도 0.8 
 > astran2 <- apriori(stran2) 
 Apriori
@@ -233,7 +238,7 @@ attr(,"package")
 ...
 [102] 4.509091  26  
 
-# 상위 5개의 향상도를 내림차순
+# 1-7 상위 6개의 향상도(lift)를 내림차순
 > inspect(head(sort(astran2, by="lift")))
     lhs                                      rhs        support   confidence coverage 
 [1] {10003332,10003373}                   => {10003374} 0.1330645 0.9705882  0.1370968
@@ -250,4 +255,209 @@ attr(,"package")
 [5] 4.509091 26   
 [6] 4.509091 26   
 > 
+
+
+# 2 연관규칙 시각화
+# adlt 데이터 셋은 성인을 대상으로 인구 소득에 관한 설문 조사 데이터
+
+# 2-1 데이터 셋
+> data(Adult) 
+
+# 48842 트랜잭션
+> str(Adult)
+Formal class 'transactions' [package "arules"] with 3 slots
+  ..@ data       :Formal class 'ngCMatrix' [package "Matrix"] with 5 slots
+  .. .. ..@ i       : int [1:612200] 1 10 25 32 35 50 59 61 63 65 ...
+  .. .. ..@ p       : int [1:48843] 0 13 26 39 52 65 78 91 104 117 ...
+  .. .. ..@ Dim     : int [1:2] 115 48842
+  .. .. ..@ Dimnames:List of 2
+  .. .. .. ..$ : NULL
+  .. .. .. ..$ : NULL
+  .. .. ..@ factors : list()
+  ..@ itemInfo   :'data.frame':	115 obs. of  3 variables:
+  .. ..$ labels   : chr [1:115] "age=Young" "age=Middle-aged" "age=Senior" "age=Old" ...
+  .. ..$ variables: Factor w/ 13 levels "age","capital-gain",..: 1 1 1 1 13 13 13 13 13 13 ...
+  .. ..$ levels   : Factor w/ 112 levels "10th","11th",..: 111 63 92 69 30 54 65 82 90 91 ...
+  ..@ itemsetInfo:'data.frame':	48842 obs. of  1 variable:
+  .. ..$ transactionID: chr [1:48842] "1" "2" "3" "4" ...
+  
+> Adult
+transactions in sparse format with
+ 48842 transactions (rows) and
+ 115 items (columns)
+ 
+# 2-2 AdultUCI 데이터 셋
+# 전체 48,842개의 관측치와 15개 변수로 구성된 데이터프레임 
+> data(AdultUCI)
+> str(AdultUCI)
+'data.frame':	48842 obs. of  15 variables:
+ $ age           : int  39 50 38 53 28 37 49 52 31 42 ...
+ $ workclass     : Factor w/ 8 levels "Federal-gov",..: 7 6 4 4 4 4 4 6 4 4 ...
+ $ fnlwgt        : int  77516 83311 215646 234721 338409 284582 160187 209642 45781 159449 ...
+ $ education     : Ord.factor w/ 16 levels "Preschool"<"1st-4th"<..: 14 14 9 7 14 15 5 9 15 14 ...
+ $ education-num : int  13 13 9 7 13 14 5 9 14 13 ...
+ $ marital-status: Factor w/ 7 levels "Divorced","Married-AF-spouse",..: 5 3 1 3 3 3 4 3 5 3 ...
+ $ occupation    : Factor w/ 14 levels "Adm-clerical",..: 1 4 6 6 10 4 8 4 10 4 ...
+ $ relationship  : Factor w/ 6 levels "Husband","Not-in-family",..: 2 1 2 1 6 6 2 1 2 1 ...
+ $ race          : Factor w/ 5 levels "Amer-Indian-Eskimo",..: 5 5 5 3 3 5 3 5 5 5 ...
+ $ sex           : Factor w/ 2 levels "Female","Male": 2 2 2 2 1 1 1 2 1 2 ...
+ $ capital-gain  : int  2174 0 0 0 0 0 0 0 14084 5178 ...
+ $ capital-loss  : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ hours-per-week: int  40 13 40 40 40 40 16 45 50 40 ...
+ $ native-country: Factor w/ 41 levels "Cambodia","Canada",..: 39 39 39 39 5 39 23 39 39 39 ...
+ $ income        : Ord.factor w/ 2 levels "small"<"large": 1 1 1 1 1 1 1 2 2 2 ...
+
+# 2-3 데이터셋 생성
+> adult <- as(Adult, 'data.frame')
+> str(adult)  
+'data.frame':	48842 obs. of  2 variables:
+ $ items        : Factor w/ 26771 levels "{age=Middle-aged,education=10th,marital-status=Divorced,relationship=Not-in-family,race=White,sex=Female,capita"| __truncated__,..: 12330 20981 6200 16289 5154 8308 16981 21198 8525 4929 ...
+ $ transactionID: chr  "1" "2" "3" "4" ...
+> head(adult)
+                                                                                                                                                                                                                                                                     items
+1      {age=Middle-aged,workclass=State-gov,education=Bachelors,marital-status=Never-married,occupation=Adm-clerical,relationship=Not-in-family,race=White,sex=Male,capital-gain=Low,capital-loss=None,hours-per-week=Full-time,native-country=United-States,income=small}
+...
+  transactionID
+1             1
+2             2
+3             3
+4             4
+5             5
+6             6
+
+# 2-4 요약통계량
+> summary(Adult)
+transactions as itemMatrix in sparse format with
+ 48842 rows (elements/itemsets/transactions) and
+ 115 columns (items) and a density of 0.1089939 
+
+most frequent items:
+           capital-loss=None            capital-gain=None native-country=United-States 
+                       46560                        44807                        43832 
+                  race=White            workclass=Private                      (Other) 
+                       41762                        33906                       401333 
+
+element (itemset/transaction) length distribution:
+sizes
+    9    10    11    12    13 
+   19   971  2067 15623 30162 
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   12.00   13.00   12.53   13.00   13.00 
+
+includes extended item information - examples:
+           labels variables      levels
+1       age=Young       age       Young
+2 age=Middle-aged       age Middle-aged
+3      age=Senior       age      Senior
+
+includes extended transaction information - examples:
+  transactionID
+1             1
+2             2
+3             3
+
+
+# 2-5 신뢰도 80%, 지지도 10% 적용된 연관규칙 발견   
+# 신뢰도 80%, 지지도 10%를 적용하여 연관규칙을 생성하면 6,137개의 규칙 발견
+> ar<- apriori(Adult, parameter = list(supp=0.1, conf=0.8))
+Apriori
+
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support minlen maxlen target
+        0.8    0.1    1 none FALSE            TRUE       5     0.1      1     10  rules
+  ext
+ TRUE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 4884 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[115 item(s), 48842 transaction(s)] done [0.07s].
+sorting and recoding items ... [31 item(s)] done [0.01s].
+creating transaction tree ... done [0.04s].
+checking subsets of size 1 2 3 4 5 6 7 8 9 done [0.15s].
+writing ... [6137 rule(s)] done [0.00s].
+creating S4 object  ... done [0.02s].
+
+
+# 지지도를 20%로 높인 경우 1,306개 규칙 발견
+> ar1<- apriori(Adult, parameter = list(supp=0.2)) 
+writing ... [1306 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+
+# 지지도 20%, 신뢰도 95% 높인 경우 348개 규칙 발견
+> ar2<- apriori(Adult, parameter = list(supp=0.2, conf=0.95)) 
+writing ... [348 rule(s)] done [0.00s].
+creating S4 object  ... done [0.01s].
+
+# 지지도 30%, 신뢰도 95% 높인 경우 124개 규칙 발견
+> ar3<- apriori(Adult, parameter = list(supp=0.3, conf=0.95))
+writing ... [124 rule(s)] done [0.00s].
+creating S4 object  ... done [0.01s].
+
+# 지지도 35%, 신뢰도 95% 높인 경우 67 규칙 발견
+> ar4<- apriori(Adult, parameter = list(supp=0.35, conf=0.95))
+writing ... [67 rule(s)] done [0.00s].
+creating S4 object  ... done [0.01s].
+
+# 지지도 40%, 신뢰도 95% 높인 경우 36 규칙 발견
+> ar5<- apriori(Adult, parameter = list(supp=0.4, conf=0.95))
+writing ... [36 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+
+# 2-6 상위 6개 규칙 보기
+> inspect(head(ar5)) 
+    lhs                       rhs                                 support   confidence
+[1] {}                     => {capital-loss=None}                 0.9532779 0.9532779 
+[2] {relationship=Husband} => {marital-status=Married-civ-spouse} 0.4034233 0.9993914 
+[3] {relationship=Husband} => {sex=Male}                          0.4036485 0.9999493 
+[4] {age=Middle-aged}      => {capital-loss=None}                 0.4800786 0.9504276 
+[5] {income=small}         => {capital-gain=None}                 0.4849310 0.9581311 
+[6] {income=small}         => {capital-loss=None}                 0.4908480 0.9698220 
+    coverage  lift     count
+[1] 1.0000000 1.000000 46560
+[2] 0.4036690 2.181164 19704
+[3] 0.4036690 1.495851 19715
+[4] 0.5051185 0.997010 23448
+[5] 0.5061218 1.044414 23685
+[6] 0.5061218 1.017355 23974
+
+# confidence(신뢰도) 기준 내림차순 정렬 상위 6개 출력
+> inspect(head(sort(ar5, decreasing=T, by="confidence")))
+    lhs                                    rhs                                   support confidence  coverage     lift count
+[1] {relationship=Husband}              => {sex=Male}                          0.4036485  0.9999493 0.4036690 1.495851 19715
+[2] {marital-status=Married-civ-spouse,                                                                                     
+     relationship=Husband}              => {sex=Male}                          0.4034028  0.9999492 0.4034233 1.495851 19703
+[3] {relationship=Husband}              => {marital-status=Married-civ-spouse} 0.4034233  0.9993914 0.4036690 2.181164 19704
+[4] {relationship=Husband,                                                                                                  
+     sex=Male}                          => {marital-status=Married-civ-spouse} 0.4034028  0.9993913 0.4036485 2.181164 19703
+[5] {marital-status=Married-civ-spouse,                                                                                     
+     sex=Male}                          => {relationship=Husband}              0.4034028  0.9901503 0.4074157 2.452877 19703
+[6] {income=small}                      => {capital-loss=None}                 0.4908480  0.9698220 0.5061218 1.017355 23974
+
+# lift(향상도) 기준 내림차순 정렬 상위 6개 출력
+> inspect(head(sort(ar5, by="lift"))) 
+    lhs                                    rhs                                   support confidence  coverage     lift count
+[1] {marital-status=Married-civ-spouse,                                                                                     
+     sex=Male}                          => {relationship=Husband}              0.4034028  0.9901503 0.4074157 2.452877 19703
+[2] {relationship=Husband}              => {marital-status=Married-civ-spouse} 0.4034233  0.9993914 0.4036690 2.181164 19704
+[3] {relationship=Husband,                                                                                                  
+     sex=Male}                          => {marital-status=Married-civ-spouse} 0.4034028  0.9993913 0.4036485 2.181164 19703
+[4] {relationship=Husband}              => {sex=Male}                          0.4036485  0.9999493 0.4036690 1.495851 19715
+[5] {marital-status=Married-civ-spouse,                                                                                     
+     relationship=Husband}              => {sex=Male}                          0.4034028  0.9999492 0.4034233 1.495851 19703
+[6] {income=small}                      => {capital-gain=None}                 0.4849310  0.9581311 0.5061218 1.044414 23685
+
+
+# 2-7 시각화
+
+
+
+
+
+
 
