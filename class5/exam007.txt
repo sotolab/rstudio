@@ -120,7 +120,134 @@ creating S4 object  ... done [0.00s].
 [30] {라면,맥주} => {우유} 0.1666667 1.0000000  0.1666667 1.200 1    
 ...  
 
+# 4 트랜잭션 생성
+# read.transactions 트랜잭션 객체 생성 함수
+# format: 트랜잭션 데이터 셋의 형식 지정
+# single: 트랜잭션 구분자에 의해서 상품이 대응된 경우
+# basket: 여러 개의 상품으로 구성된 경우(transaction ID없이 여러 상품으로만 구성된 경우)
+# sep: 각 상품을 구분하는 구분자 지정
+# cols: single인 경우 읽을 칼럼 수 지정
+# rm.duplicates: 중복 트랜잭션 상품 제거
+# encoding: 데이터 셋의 인코딩 지정
+> setwd("C:/workspace/rstudio-master/data")
+> stran <- read.transactions("019items.txt",format="single",cols=c(1,2)) 
+> inspect(stran)
+    items         transactionID
+[1] {item1}       trans1       
+[2] {item1,item2} trans2       
+>
 
+# 상품이 콤마로 구분되어 있으며, 중복된 트랜잭션이 존재하는 경우 해당 트랜잭션을 제거
+> stran2<- read.transactions("020single_format.csv", format="single", sep=",", 
++ cols=c(1,2), rm.duplicates=T)
+> stran2
+transactions in sparse format with
+ 248 transactions (rows) and
+ 68 items (columns)
+> inspect(stran2)
 
+# 요약통계량
+# sizes의 첫 줄은 item수, 두 번째 줄은 transaction 수
+# item 수가 1개로 구성된 transaction 수가 12개라는 의미
+# 248개 transaction에 대한 기술통계 제공
+> summary(stran2)
+transactions as itemMatrix in sparse format with
+ 248 rows (elements/itemsets/transactions) and
+ 68 columns (items) and a density of 0.06949715 
 
+most frequent items:
+10001519 10003364 10003373 10093119 10003332  (Other) 
+     186      183       91       84       71      557 
+
+element (itemset/transaction) length distribution:
+sizes
+  1   2   3   4   5   6   7   8 
+ 12  25  16  20 119  12  37   7 
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.000   5.000   4.726   5.000   8.000 
+
+includes extended item information - examples:
+    labels
+1 10000005
+2 10000012
+3 10000085
+
+includes extended transaction information - examples:
+    transactionID
+1 2010-01-01-0823
+2 2010-01-02-0822
+3 2010-01-03-0822
+
+> inspect(stran2)
+
+# 규칙 생성
+# 지지율 0.1, 신뢰도 0.8 
+> astran2 <- apriori(stran2) 
+Apriori
+
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support minlen maxlen target
+        0.8    0.1    1 none FALSE            TRUE       5     0.1      1     10  rules
+  ext
+ TRUE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 24 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[68 item(s), 248 transaction(s)] done [0.00s].
+sorting and recoding items ... [12 item(s)] done [0.00s].
+creating transaction tree ... done [0.00s].
+checking subsets of size 1 2 3 4 5 done [0.00s].
+writing ... [102 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+
+> astran2
+set of 102 rules 
+
+> attributes(astran2)
+$quality
+      support confidence  coverage     lift count
+1   0.1088710  0.8181818 0.1330645 1.108793    27
+2   0.1088710  0.8181818 0.1330645 1.090909    27
+3   0.1330645  1.0000000 0.1330645 1.355191    33
+4   0.1330645  1.0000000 0.1330645 1.333333    33
+...
+101 0.1048387  1.0000000 0.1048387 2.952381    26
+102 0.1048387  1.0000000 0.1048387 4.509091    26
+...
+$class
+[1] "rules"
+attr(,"package")
+[1] "arules"
+
+> inspect(astran2)
+      lhs                                      rhs        support   confidence coverage 
+[1]   {10003349}                            => {10003364} 0.1088710 0.8181818  0.1330645
+[2]   {10003349}                            => {10001519} 0.1088710 0.8181818  0.1330645
+[3]   {10202857}                            => {10003364} 0.1330645 1.0000000  0.1330645
+...
+[102] 4.509091  26  
+
+# 상위 5개의 향상도를 내림차순
+> inspect(head(sort(astran2, by="lift")))
+    lhs                                      rhs        support   confidence coverage 
+[1] {10003332,10003373}                   => {10003374} 0.1330645 0.9705882  0.1370968
+[2] {10003332,10003364,10003373}          => {10003374} 0.1330645 0.9705882  0.1370968
+[3] {10001519,10003332,10003373}          => {10003374} 0.1330645 0.9705882  0.1370968
+[4] {10001519,10003332,10003364,10003373} => {10003374} 0.1330645 0.9705882  0.1370968
+[5] {10003332,10093119}                   => {10003375} 0.1048387 1.0000000  0.1048387
+[6] {10003332,10003364,10093119}          => {10003375} 0.1048387 1.0000000  0.1048387
+    lift     count
+[1] 4.912365 33   
+[2] 4.912365 33   
+[3] 4.912365 33   
+[4] 4.912365 33   
+[5] 4.509091 26   
+[6] 4.509091 26   
+> 
 
