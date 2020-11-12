@@ -114,3 +114,289 @@ Frequency = 1
 > plot(tsdata - m$trend)
 > plot(tsdata - m$seasonal - m$trend)
 
+# 2-3 자기상관함수/부분자기상관함수 
+# 자기상관성은 자기 상관계수가 유의미한가를 나타냄
+# 자기 상관계수는 시계열 자료(Y)에서 시차(lag)를 일정하게 주는 경우 얻어지는 상관계수
+> input <- c(3180,3000,3200,3100,3300,3200,3400,3550,3200,3400,3300,3700) 
+> length(input)
+[1] 12
+> tsdata <- ts(input, start=c(2015, 2), frequency=12)
+> tsdata
+      Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+2015      3180 3000 3200 3100 3300 3200 3400 3550 3200 3400 3300
+2016 3700        
+
+# 파란 점섬은 유의미한 자기 상과관계에 대한 임계값을 의미함
+# 모든 시차(Lag)가 파란 점선 안쪽에 있기 때문에 서로 이웃한 시점 간의 자기 상관성은 없음
+> acf(na.omit(tsdata), main="자기상관함수", col="red")
+
+# 자기 상관 함수에 의해서 주기 생성에는 어떤 종류의 시간 간격이 영향을 미치는가를 보여줌
+# 간격 0.5에서 가장 작은 값(-0.5)을 나타내고 있음
+# 부분 자기 상관 함수의 결과도 모든 시차가 파란 점선 안쪽에 있기 때문에 주어진 시점 간의 자기 상관성은 없음
+> pacf(na.omit(tsdata), main="부분자기상관함수", col="red")
+
+# 2-4 시계열 자료의 추세 패턴 찾기 시각화
+# 추세 패턴이란 시계열 자료가 증가 또는 감소하는 경향이 있는지를 알아보고
+# 증가 또는 감소하는 경향이 선형인지, 비선형인지를 찾는 과정
+> input <- c(3180, 3000, 3200, 3100, 3300, 3200, 3400,
++ 3550, 3200, 3400, 3300, 3700)
+> tsdata <- ts(input, start=c(2015, 2), frequency=12)
+
+# 자기 상관 함수의 시각화로 자기 상관없이 없음을 알 수 있음
+> plot(tsdata, type="l", col='red')
+> acf(na.omit(tsdata), main="자기상관함수", col="red")
+
+# 차분을 수행한 결과가 평균을 중심으로 일정한 폭을 나타내고 있고,
+# 자기 상관 함수와 차분의 시각화를 통해 추세의 패턴을 선형으로 판단함
+> plot(diff(tsdata, differences = 1))
+
+
+# 2-5 이동평균법을 이용한 평활하기
+> install.packages("TTR")
+> library(TTR)
+> data <- c(45, 56, 45, 43, 69, 75, 58, 59, 66, 64, 62, 65, 
++ 55, 49, 67, 55, 71, 78, 71, 65, 69, 43, 70, 75,
++ 56, 56, 65, 55, 82, 85, 75, 77, 77, 69, 79, 89)
+> length(data)
+[1] 36
+> tsdata <- ts(data, start=c(2016, 1), end = c(2018, 10),frequency=12)
+> tsdata 
+     Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+2016  45  56  45  43  69  75  58  59  66  64  62  65
+2017  55  49  67  55  71  78  71  65  69  43  70  75
+2018  56  56  65  55  82  85  75  77  77  69     
+
+# 원 시계열 자료와 1년 단위, 2년 단위, 3년 단이로 이동평균법으로 평활한 결과를 시각화
+# 연 단위의 3개 평활 결과에서 가장 평탄한 분포된 결과를 선정하여 추세를 예측
+# 3년마다 평균으로 평활하나 결과가 가장 평탄한 값으로 판단됨
+> par(mfrow=c(2, 2))
+> plot(tsdata, main="원 시계열 자료")
+> plot(SMA(tsdata, n=1), main="1년 단위 이동평균법으로 평활")
+> plot(SMA(tsdata, n=2), main="2년 단위 이동평균법으로 평활")
+> plot(SMA(tsdata, n=3), main="3년 단위 이동평균법으로 평활")
+
+# 2-6 계절성이 없는 정상성 시계열 분석
+# ARIMA 모형 예측
+> input <- c(3180,3000,3200,3100,3300,3200,3400,3550,3200,3400,3300,3700) 
+> tsdata <- ts(input, start=c(2015, 2), frequency=12) 
+> tsdata 
+      Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+2015      3180 3000 3200 3100 3300 3200 3400 3550 3200 3400 3300
+2016 3700       
+
+# 시계열 자료의 추세선에서 진폭이 일정하지 않는 것으로 확인됨
+# 비정상 시계열로 판된되어 차부을 통해서 정상성 시계열로 변경해야 함
+# 차분은 일반 차분과 계절 차분으로 구분되는데, 계절성을 갖는 경우에는 계절 차분을 적용
+> plot(tsdata, type="l", col='red')
+
+# 정상성 시계열 변환
+# 차분을 이용하여 비정상성 시계열(왼쪽)이 정상성 시계열(오른쪽)로 변경됨
+> par(mfrow=c(1,2))
+> ts.plot(tsdata)
+> diff <- diff(tsdata)
+> plot(diff)
+
+# 모형 식별과 추정
+install.packages('forecast')
+library(forecast)
+arima <- auto.arima(tsdata) # 시계열 데이터 이용 
+arima
+
+# 모형 식별과 추정
+> install.packages('forecast')
+> library(forecast)
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+
+# auto.arima : 모형과 파라미터는 ARIMA(1,1,0), 최고의 모형과 파라미터를 추정을 제공함
+# 자기 회구(AR) 모형 차수는 1, 차분(I) 차수는 1
+# AIC(Akaike's Information Criterion)/BIC(Bayesian Information Criterion)는 이론적 예측력을 나타내는 지표
+# AIC는 모형의 적합도와 간명성을 동시에 나타내는 지수로 값이 적은 모형을 채택
+# AIC (p,d,q)모혀의 정상성 시계열 변환 방법
+# d = 0 이면, ARMA(r,q) 모형이며, 정상성을 만족함
+# p = 0 이면, IMA(d, q) 모형이며, d번 차분하면 MA(q)모형을 따름
+# q = 0 이면, IAR(p,d) 모형이며, d번 차분하면 AR(p) 모형을 따름
+> arima <- auto.arima(tsdata)
+> arima
+Series: tsdata 
+ARIMA(1,1,0) 
+
+Coefficients:
+          ar1
+      -0.6891
+s.e.   0.2451
+
+sigma^2 estimated as 31644:  log likelihood=-72.4
+AIC=148.8   AICc=150.3   BIC=149.59
+
+# 모형 생성 
+# 이전 단계에서 생성된 모형과 파라미터를 이용함
+# 모형의 라파미터는 orer 속성으로 지정하여 ARIMA 모형을 생성
+# 생성된 모형의 결과에서 AR 모형의 계수값과 표준 오차(s.e)를 확인 할 수 있음
+> model <- arima(tsdata, order=c(1, 1, 0))
+> model 
+
+Call:
+arima(x = tsdata, order = c(1, 1, 0))
+
+Coefficients:
+          ar1
+      -0.6891
+s.e.   0.2451
+
+sigma^2 estimated as 28767:  log likelihood = -72.4,  aic = 148.8
+
+# 모형 진단(모형 타당성 검정)
+# 좋은 시계열 모형은 잔차의 ACF에서 자기 상관이 발견되지 않고, 
+# p value값이 0 이상으로 분포되어 있음, ARIMA모형은 매우 양호한 시계열 모형이라고 볼 수 있음
+> tsdiag(model)
+
+ # Box-Ljung에 의한 잔차항 모형 진단
+ # 모형의 잔차를 이용하는 카이제곱 검정방법으로 시계열 모형이 통계적으로 적절한지를 검증하는 방법
+ # p-value가 0.05 이상이면 모형이 통계적으로 적절하다고 볼 수 있음
+ > Box.test(model$residuals, lag=1, type = "Ljung")
+
+	Box-Ljung test
+
+data:  model$residuals
+X-squared = 0.12353, df = 1, p-value = 0.7252
+
+# 모형으로 가까운 미례를 예측하는데 이용
+> fore <- forecast(model)
+> fore
+         Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+Feb 2016       3424.367 3207.007 3641.727 3091.944 3756.791
+Mar 2016       3614.301 3386.677 3841.925 3266.180 3962.421
+Apr 2016       3483.421 3198.847 3767.995 3048.203 3918.639
+May 2016       3573.608 3272.084 3875.131 3112.467 4034.748
+Jun 2016       3511.462 3175.275 3847.649 2997.308 4025.615
+Jul 2016       3554.286 3199.003 3909.568 3010.928 4097.643
+Aug 2016       3524.776 3143.569 3905.984 2941.770 4107.783
+Sep 2016       3545.111 3144.813 3945.408 2932.908 4157.313
+Oct 2016       3531.099 3109.224 3952.974 2885.897 4176.301
+Nov 2016       3540.754 3100.585 3980.923 2867.574 4213.934
+Dec 2016       3534.101 3074.901 3993.300 2831.816 4236.385
+Jan 2017       3538.685 3062.192 4015.179 2809.951 4267.420
+Feb 2017       3535.526 3041.695 4029.357 2780.277 4290.775
+Mar 2017       3537.703 3027.557 4047.849 2757.502 4317.904
+Apr 2017       3536.203 3009.958 4062.448 2731.381 4341.025
+May 2017       3537.237 2995.565 4078.908 2708.822 4365.651
+Jun 2017       3536.524 2979.724 4093.325 2684.972 4388.077
+Jul 2017       3537.015 2965.573 4108.457 2663.070 4410.960
+Aug 2017       3536.677 2950.901 4122.453 2640.809 4432.545
+Sep 2017       3536.910 2937.181 4136.639 2619.704 4454.116
+Oct 2017       3536.749 2923.359 4150.140 2598.650 4474.849
+Nov 2017       3536.860 2910.124 4163.596 2578.350 4495.371
+Dec 2017       3536.784 2896.968 4176.600 2558.270 4515.298
+Jan 2018       3536.836 2884.211 4189.462 2538.732 4534.941
+> par(mfrow=c(1,2))
+
+# 향후 24개월 예측치 시각화
+> plot(fore)
+
+# 향후 6개월 예측치 시각화
+> model2 <- forecast(model, h=6)
+> plot(model2)
+
+
+# 정상성 시계열 계절형
+# 비정상 시계열은 차분을 통해서 정상성 시계열로 바꾸는 과정을 확인하고
+# auto.arima 함수를 이용함
+> data <- c(55, 56, 45, 43, 69, 75, 58, 59, 66, 64, 62, 65,
++ 55, 49, 67, 55, 71, 78, 61, 65, 69, 53, 70, 75,
++ 56, 56, 65, 55, 68, 80, 65, 67, 77, 69, 79, 82,
++ 57, 55, 63, 60, 68, 70, 58, 65, 70, 55, 65, 70)
+> length(data)
+[1] 48
+
+# 시계열 자료 생성
+> tsdata <- ts(data, start=c(2020, 1), frequency=12)
+> tsdata 
+     Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+2020  55  56  45  43  69  75  58  59  66  64  62  65
+2021  55  49  67  55  71  78  61  65  69  53  70  75
+2022  56  56  65  55  68  80  65  67  77  69  79  82
+2023  57  55  63  60  68  70  58  65  70  55  65  70
+> head(tsdata)
+     Jan Feb Mar Apr May Jun
+2020  55  56  45  43  69  75
+> tail(tsdata)
+     Jul Aug Sep Oct Nov Dec
+2023  58  65  70  55  65  70
+ 
+# 시계열요소분해 시각화
+# seasonal, trend, remainder 요소분해 시각화를 통해서 분석한 결과,
+# 계절성(seasonal)이 뚜렷하게 발견됨에 따라,
+# tsdata는 계절성을 갖는 시계열 자료라고 볼 수 있음
+> ts_feature <- stl(tsdata, s.window="periodic")
+> plot(ts_feature)
+
+# 정상성시계열 변환 (평균을 맞추는 작업)
+> par(mfrow=c(1,2))
+> ts.plot(tsdata)
+> diff <- diff(tsdata)
+> plot(diff)
+
+# 모형 식별과 추정
+# auto.arima함수에 의해서 제공되는 모형과 파라미터는 ARIMA(0,1,1)
+# 이동평균(MA) 모형 차수는 1, 차분(I) 차수는 1 -> ARMA(1,0) 모형으로 식별됨
+# 파라미터(1,1,0)는 계절성을 갖는 자기 회귀(AR)모형 차수가 1로 나타나서,
+# 계절성을 갖는 시계열이라는 의미
+# [12]는 계절의 차수 12개월을 의미함
+# 한편 모형의 계수(Coefficients)는 이동평균모형의 차수 1(ma1)과
+# 계절성의 자기 회귀 차수(sar1)에 대한 계수값
+> library(forecast)
+> ts_model2 <- auto.arima(tsdata) 
+> ts_model2
+Series: tsdata 
+ARIMA(0,1,1)(1,1,0)[12] 
+
+Coefficients:
+          ma1     sar1
+      -0.6580  -0.5317
+s.e.   0.1421   0.1754
+
+sigma^2 estimated as 41.97:  log likelihood=-116.31
+AIC=238.62   AICc=239.4   BIC=243.29
+
+# 모형 생성
+# 이전 단계에서 식별된 모형과 파라미터를 이용하여 시계열 모형을 생성
+# 계절성이 있는 모형을 생성할 경우 seasonal 속성을 이용하여,
+# 계절성과 관련된 파라메터를 지정하여 ARIMA 모형을 생성함
+# 생성된 모형의 결과에서 MA모형과 계절성을 갖는 AR모형의 계수값과 표준 오차(s.e)를 확인할 수 있음
+> model <- arima(tsdata, c(0, 1, 1), 
++ seasonal = list(order = c(1, 1, 0)))
+> model
+
+Call:
+arima(x = tsdata, order = c(0, 1, 1), seasonal = list(order = c(1, 1, 0)))
+
+Coefficients:
+          ma1     sar1
+      -0.6580  -0.5317
+s.e.   0.1421   0.1754
+
+sigma^2 estimated as 39.57:  log likelihood = -116.31,  aic = 238.62
+
+# 자기상관함수에 의한 모형 진단
+# 모형의 적합성 검증을 위해서 전차 검정을 수행함
+# 모형 잔차의 ACF에서 자기 상관이 발견되지 않고,
+# p value값이 '0' 이상으로 분포되어 있음
+# ARIMA 모형은 매우 양호한 시계열 모형이라고 볼 수 있음
+> tsdiag(model)
+
+# Box-Ljung에 의한 잔차항 모형 진단
+# p-value가 0.05 이상이므로 모형이 통계적으로 적절하다고 볼 수 있음
+> Box.test(model$residuals, lag=1, type = "Ljung")
+
+# 2년 예측
+> par(mfrow=c(1,2))
+> fore <- forecast(model, h=24)
+> plot(fore)
+
+# 6개월 예측
+> fore2 <- forecast(model, h=6)
+> plot(fore2)
+
+
