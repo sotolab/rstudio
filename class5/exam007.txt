@@ -454,10 +454,163 @@ creating S4 object  ... done [0.00s].
 
 
 # 2-7 시각화
+# 지지도 30%, 신뢰도 96%(supp=0.3, conf=0.95)에 의해서 생성된 124개의 연관규칙
+# 지나치게 규칙이 많아서 가장 최적의 규칙 100개만 지원하다는' 경고 출력
+# 5만 달러 이상의 연봉 수령자와 관련된 연관어는 주당 근무시간(hours-per-week)
+# 형태는 정규직(Full-time, 인종(race)은 백인, 국가(native-country)는 미국
+# 자본손실(capital-loss)는 없음, 직업(workclass)는 자영업(private)
+# 나이(age)는 중년, 교육수준(Eduction)은 고졸(HS-grad)
+# 결혼 여부는 기혼(Married-civ-spouse)
+> install.packages("arulesViz") 
+> library(arulesViz) 
+> plot(ar3, method='graph', control=list (type='items'))
 
 
+# 3 식료품매장 판매
+# Groceries 데이터 셋은 1개월 동안 실제 지역 식료품매장에서 판매되는 트랜잭션 데이터를 포함
+# 전체 9,835개의 트랜잭션(transaction)과 항목(item) 169 범주를 포함
+> library(arules)
+> data("Groceries") 
+> str(Groceries)
+Formal class 'transactions' [package "arules"] with 3 slots
+  ..@ data       :Formal class 'ngCMatrix' [package "Matrix"] with 5 slots
+  .. .. ..@ i       : int [1:43367] 13 60 69 78 14 29 98 24 15 29 ...
+  .. .. ..@ p       : int [1:9836] 0 4 7 8 12 16 21 22 27 28 ...
+  .. .. ..@ Dim     : int [1:2] 169 9835
+  .. .. ..@ Dimnames:List of 2
+  .. .. .. ..$ : NULL
+  .. .. .. ..$ : NULL
+  .. .. ..@ factors : list()
+  ..@ itemInfo   :'data.frame':	169 obs. of  3 variables:
+  .. ..$ labels: chr [1:169] "frankfurter" "sausage" "liver loaf" "ham" ...
+  .. ..$ level2: Factor w/ 55 levels "baby food","bags",..: 44 44 44 44 44 44 44 42 42 41 ...
+  .. ..$ level1: Factor w/ 10 levels "canned food",..: 6 6 6 6 6 6 6 6 6 6 ...
+  ..@ itemsetInfo:'data.frame':	0 obs. of  0 variables
 
+# data.frame으로 형 변환
+> Groceries
+transactions in sparse format with
+ 9835 transactions (rows) and
+ 169 items (columns)
+ 
+> Groceries.df<- as(Groceries, "data.frame")
+> head(Groceries.df)
+                                                                  items
+1              {citrus fruit,semi-finished bread,margarine,ready soups}
+2                                        {tropical fruit,yogurt,coffee}
+3                                                          {whole milk}
+4                         {pip fruit,yogurt,cream cheese ,meat spreads}
+5 {other vegetables,whole milk,condensed milk,long life bakery product}
+6                      {whole milk,butter,yogurt,rice,abrasive cleaner}
 
+# 지지도 0.001, 신뢰도 0.8 적용 규칙 발견
+# 410개 규칙 발견
+> rules <- apriori(Groceries, parameter=list(supp=0.001, conf=0.8))
+Apriori
 
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support
+        0.8    0.1    1 none FALSE            TRUE       5   0.001
+ minlen maxlen target  ext
+      1     10  rules TRUE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 9 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[169 item(s), 9835 transaction(s)] done [0.01s].
+sorting and recoding items ... [157 item(s)] done [0.00s].
+creating transaction tree ... done [0.00s].
+checking subsets of size 1 2 3 4 5 6 done [0.01s].
+writing ... [410 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].
+
+# 규칙을 구성하는 왼쪽(LHS) -> 오른쪽(RHS)의 item 빈도수 보기
+# 하나의 규칙은 A상품->B상품 형태로 표현
+# 왼쪽에 있는 A상품은 LHS표현
+# 오른쪽에 있는 B상품은 RHS로 표현
+# B상품의 빈도수가 가장 높은 것은 whole milk(진지유:지방을 제거하지 않는 우유)
+# 두번째로는 기타 야체(other vegetables) 로 나타남
+> library(arulesViz)
+> plot(rules, method="grouped")
+
+# 최대 길이 3이하 규칙 생성
+# 규칙을 구성하는 LHS와 RHS 길이를 합쳐서 3 이하의 길이를 갖는 규칙만 생성하면
+# 규칙의 수가 29개로 현저하게 줄어듬
+# 경고메시지는 규착의 아이템 길이가 3개 이하인 규칙만 반환하고 멈추었다는 의미
+> rules <- apriori(Groceries, parameter=list(supp=0.001, conf=0.80, maxlen=3))
+Apriori
+
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support minlen
+        0.8    0.1    1 none FALSE            TRUE       5   0.001      1
+ maxlen target  ext
+      3  rules TRUE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 9 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[169 item(s), 9835 transaction(s)] done [0.02s].
+sorting and recoding items ... [157 item(s)] done [0.00s].
+creating transaction tree ... done [0.00s].
+checking subsets of size 1 2 3 done [0.00s].
+writing ... [29 rule(s)] done [0.00s].
+
+> inspect(rules)
+     lhs                         rhs                    support confidence    coverage      lift count
+[1]  {liquor,                                                                                         
+      red/blush wine}         => {bottled beer}     0.001931876  0.9047619 0.002135231 11.235269    19
+[2]  {curd,                                                                                           
+      cereals}                => {whole milk}       0.001016777  0.9090909 0.001118454  3.557863    10
+      
+
+# confidence(신뢰도) 기준 내림차순으로 규칙 정렬
+> rules <- sort(rules, decreasing=T, by="confidence")
+> inspect(rules) 
+     lhs                         rhs                    support confidence    coverage      lift count
+[1]  {rice,                                                                                           
+      sugar}                  => {whole milk}       0.001220132  1.0000000 0.001220132  3.913649    12
+[2]  {canned fish,                                                                                    
+      hygiene articles}       => {whole milk}       0.001118454  1.0000000 0.001118454  3.913649    11
+
+# 발견된 규칙 시각화
+# 지지도 1%와 신뢰도 80%를 적용하고, 규칙의 항목 수를 3이하로 지정했을 때 29개의 규칙 생성
+# whole milk(전지유)와 other vegetables 단어를 중심으로 연관어 형성됨
+# supp=0.001, conf=0.80
+> library(arulesViz)
+> plot(rules, method="graph", control=list(type="items"))
+
+# 오른쪽 item이 전지분유(whole milk)인 규칙만 서브셋으로 작성
+# 연관 네트워크 그래프
+> wmilk <- subset(rules, rhs %in% 'whole milk')
+> wmilk
+set of 18 rules 
+> inspect(wmilk)
+> plot(wmilk, method="graph")
+
+# 오른쪽 item이 other vegetables인 규칙만 서브셋으로 작성
+> oveg <- subset(rules, rhs %in% 'other vegetables')
+> oveg
+set of 10 rules 
+> plot(oveg, method="graph")
+
+# 오른쪽 item이 other vegetables인 규칙만 서브셋으로 작성
+> veg <- subset(rules, rhs %pin% 'vegetables') 
+> veg 
+set of 10 rules 
+> plot(oveg, method="graph")
+
+# 왼쪽 item이 butter or yogurt인 규칙만 서브 셋으로 작성
+> butter_yog <- subset(rules, lhs %in% c('butter', 'yogurt'))
+> butter_yog
+set of 4 rules 
+> plot(butter_yog, method="graph")
 
 
