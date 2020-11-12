@@ -64,7 +64,7 @@ creating S4 object  ... done [0.00s].
 
 
 # 3 규칙발견 2
-# 지지도가 0.1이고 신뢰도가 0.1인 경우에는 35개의 규칙이 
+# 지지도가 0.1이고 신뢰도가 0.1인 경우에는 35개의 규칙이 발견됨
 > rule<- apriori(tran, parameter = list(supp=0.1, conf=0.1))
 Apriori
 
