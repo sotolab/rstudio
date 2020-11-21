@@ -47,12 +47,25 @@
 > df
 > df <- df[1:17, ]
 > df
+
+# 전국의 인구수를 지도위에 시각화
+# 지도유형은 watecolor이고, 중심지역은 대구를 기준으로 함
 > daegu <- c(left = 123.4423013, bottom = 32.8528306,
 + right = 131.601445, top = 38.8714354)
 > map <- get_stamenmap(daegu, zoom = 7, maptype = 'watercolor')
 > layer1 <- ggmap(map)
 > layer1
 > 
+
+# layer1의 결과에 데이터셋(df)를 이용하여
+# 경도(lon)와 위도(lat)를 x축과 y축으로 하여
+# 전체 인구수(tot_pop)를 포인터로 시각화
+# 전체 인구수를 숫자 크기 순서대로 16개 level 지정
+> layer2 <- layer1 + geom_point(data = df, 
++ aes(x = lon, y = lat,
++ color = factor(tot_pop),
++ aize = factor(tot_pop)
+> layer2
 
 # 7 전체 인구수 시각화 
 > layer3 <- layer2 + geom_text(data = df, 
