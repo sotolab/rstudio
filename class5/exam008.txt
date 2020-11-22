@@ -2,6 +2,7 @@
 
 # 1 시계열 시각화
 # 1-1 비정상성 시계열 → 정상성 시계열
+# AirPassengers : 12년간 항공기 탑승 승객 수
 > data(AirPassengers)
 > str(AirPassengers)
  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...
